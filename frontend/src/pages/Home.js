@@ -1,6 +1,7 @@
 // import { useEffect, useState } from 'react'
 import { useEffect } from 'react'
 import { useForumpostContext } from '../hooks/useForumpostContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 // components
 import ForumpostDetails from '../components/ForumpostDetails'
@@ -8,11 +9,15 @@ import ForumpostForm from '../components/ForumpostForm'
 
 const Home = () => {
     const {forumposts, dispatch} = useForumpostContext()
-    // const [forumposts, setForumposts] = useState(null)
+    const {user} = useAuthContext()
 
     useEffect(() => {
         const fetchForumposts = async () => {
-            const response = await fetch('/api/forumposts')
+            const response = await fetch('/api/forumposts', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             const json = await response.json()
 
             if (response.ok) {
@@ -21,8 +26,11 @@ const Home = () => {
             }
         }
 
-        fetchForumposts()
-    }, [dispatch])
+        // if user is logged in
+        if (user) {
+            fetchForumposts()
+        }
+    }, [dispatch, user])
 
     return (
         <div className="home">

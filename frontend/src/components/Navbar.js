@@ -15,7 +15,7 @@ const Navbar = () => {
         <header>
             <div className="container">
                 <Link to="/">
-                    <h1>uniLink</h1>
+                    <h2>uniLink</h2>
                 </Link>
                 <nav>
                     {/* if user is logged in */}

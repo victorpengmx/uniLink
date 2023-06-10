@@ -10,3 +10,5 @@ export const useAuthContext = () => {
 
     return context
 }
+
+// module.exports = (useAuthContext)

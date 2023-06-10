@@ -1,12 +1,21 @@
 import { useForumpostContext } from "../hooks/useForumpostContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const ForumpostDetails = ({forumpost}) => {
-    const {dispatch} = useForumpostContext()
+    const { dispatch } = useForumpostContext()
+    const { user } = useAuthContext()
     
-    const handleClick = async () => {
+    const handleDelete = async () => {
+        if (!user) {
+            return
+        }
+
         // sends a delete request to database
         const response = await fetch('/api/forumposts/' + forumpost._id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
         })
         const json = await response.json()
 
@@ -15,20 +24,39 @@ const ForumpostDetails = ({forumpost}) => {
         }
     }
 
+    // const handleEdit = async () => {
+    //     if (!user) {
+    //         return
+    //     }
+
+    //     // sends an edit request to database
+    //     const response = await fetch('/api/forumposts/' + forumpost._id, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'Authorization': `Bearer ${user.token}`
+    //         }
+    //     })
+    //     const json = await response.json()
+
+    //     if (response.ok) {
+    //         dispatch({type: 'EDIT_FORUMPOST', payload: json})
+    //     }
+    // }
+
 
     return (
         <div className="forumpostDetails">
             <div className="heading">
             <h4>{forumpost.title}</h4>
             <div className="actions">
-            <button className = 'edit'>Edit</button>
+            <button className = 'edit' /*onClick={handleEdit}*/>Edit</button>
             <span className="space"></span>
-            <button className = 'delete' onClick={handleClick}>Delete</button>
+            <button className = 'delete' onClick={handleDelete}>Delete</button>
             </div>
             </div>
             
-            {/* <p><strong>Description: </strong>{forumpost.description}</p> */}
             <p><strong>Content: </strong>{forumpost.content}</p>
+            <p><strong>User: </strong>{forumpost.user_id}</p>
             <p>{forumpost.createdAt}</p>
             
         </div>

@@ -1,10 +1,13 @@
 const ForumPost = require('../models/forumpostModel')
+// const { ForumPost } = require('../models/forumpostModel')
+// const { EditForumPost } = require('../models/forumpostModel')
 const mongoose = require('mongoose')
 
 // Get all posts
 const getAllPosts = async(req, res) => {
+    const user_id = req.user._id
 
-    const posts = await ForumPost.find({}).sort({createdAt: -1})
+    const posts = await ForumPost.find({ /*user_id*/ }).sort({createdAt: -1})
 
     res.status(200).json(posts)
 }
@@ -33,7 +36,9 @@ const createPost = async(req, res) => {
 
     //add new post to database
     try {
-        const forumpost = await ForumPost.create({title, description, content})
+        const user_id = req.user._id
+
+        const forumpost = await ForumPost.create({title, content, user_id})
         res.status(200).json(forumpost)
     } catch (error) {
         res.status(400).json({error: error.message})

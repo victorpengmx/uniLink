@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { useForumpostContext } from "../hooks/useForumpostContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const ForumpostForm = () => {
     const { dispatch } = useForumpostContext()
+    const { user } = useAuthContext()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [content, setContent] = useState('')
@@ -11,13 +13,20 @@ const ForumpostForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        // checks if user is logged in
+        if (!user) {
+            setError('You are not logged in')
+            return
+        }
+
         const forumpost = {title, description, content}
 
         const response = await fetch('/api/forumposts', {
             method: 'POST',
             body: JSON.stringify(forumpost),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
 

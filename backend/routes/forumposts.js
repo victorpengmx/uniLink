@@ -7,8 +7,12 @@ const {
     updatePost
 } = require('../controllers/forumpostController')
 
+const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
+
+// require authentication for all post routes
+router.use(requireAuth)
 
 // GET all posts
 router.get('/', getAllPosts)
@@ -24,6 +28,5 @@ router.delete('/:id', deletePost)
 
 // UPDATE post
 router.patch('/:id', updatePost)
-
 
 module.exports = router
