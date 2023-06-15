@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 const ForumpostForm = () => {
     const { dispatch } = useForumpostContext()
     const { user } = useAuthContext()
+    
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [content, setContent] = useState('')
@@ -68,7 +69,7 @@ const ForumpostForm = () => {
             /> */}
 
             <label>Content:</label>
-            <input
+            <textarea
                 type = "text"
                 onChange = {(e) => setContent(e.target.value)}
                 value = {content}

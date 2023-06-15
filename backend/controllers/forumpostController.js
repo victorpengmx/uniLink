@@ -1,6 +1,4 @@
 const ForumPost = require('../models/forumpostModel')
-// const { ForumPost } = require('../models/forumpostModel')
-// const { EditForumPost } = require('../models/forumpostModel')
 const mongoose = require('mongoose')
 
 // Get all posts

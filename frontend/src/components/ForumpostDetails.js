@@ -24,26 +24,6 @@ const ForumpostDetails = ({forumpost}) => {
         }
     }
 
-    // const handleEdit = async () => {
-    //     if (!user) {
-    //         return
-    //     }
-
-    //     // sends an edit request to database
-    //     const response = await fetch('/api/forumposts/' + forumpost._id, {
-    //         method: 'PATCH',
-    //         headers: {
-    //             'Authorization': `Bearer ${user.token}`
-    //         }
-    //     })
-    //     const json = await response.json()
-
-    //     if (response.ok) {
-    //         dispatch({type: 'EDIT_FORUMPOST', payload: json})
-    //     }
-    // }
-
-
     return (
         <div className="forumpostDetails">
             <div className="heading">

@@ -22,12 +22,6 @@ export const ForumpostReducer = (state, action) => {
             return {
                 forumposts: state.forumposts.filter((post) => post._id !== action.payload._id)
             }
-        /*
-            case 'EDIT_FORUMPOST':
-            return {
-                forumposts: [action.payload, ...state.forumposts]
-            }
-        */
         default:
             return state
     }
