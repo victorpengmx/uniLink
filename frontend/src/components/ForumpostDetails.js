@@ -2,27 +2,27 @@ import { useForumpostContext } from "../hooks/useForumpostContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 
 const ForumpostDetails = ({forumpost}) => {
-    const { dispatch } = useForumpostContext()
-    const { user } = useAuthContext()
+    // const { dispatch } = useForumpostContext()
+    // const { user } = useAuthContext()
     
-    const handleDelete = async () => {
-        if (!user) {
-            return
-        }
+    // const handleDelete = async () => {
+    //     if (!user) {
+    //         return
+    //     }
 
-        // sends a delete request to database
-        const response = await fetch('/api/forumposts/' + forumpost._id, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${user.token}`
-            }
-        })
-        const json = await response.json()
+    //     // sends a delete request to database
+    //     const response = await fetch('/api/forumposts/' + forumpost._id, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Authorization': `Bearer ${user.token}`
+    //         }
+    //     })
+    //     const json = await response.json()
 
-        if (response.ok) {
-            dispatch({type: 'DELETE_FORUMPOST', payload: json})
-        }
-    }
+    //     if (response.ok) {
+    //         dispatch({type: 'DELETE_FORUMPOST', payload: json})
+    //     }
+    // }
 
     return (
         <div className="forumpostDetails">

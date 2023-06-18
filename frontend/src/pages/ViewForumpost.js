@@ -6,18 +6,16 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 import { useNavigate } from "react-router-dom";
 
-// import ForumpostDetails from '../components/ForumpostDetails'
-
 const ViewForumpost = () => {
+    const {user} = useAuthContext()
     const { id } = useParams()
     // const {forumpost, dispatch} = useForumpostContext()
     const [forumpost, dispatch] = useState(null)
-
-    const {user} = useAuthContext()
+    const [editing, setEdit] = useState(false)
+    const [editingContent, setEditingContent] = useState({})
 
     const navigate = useNavigate()
 
-    // upon loading page
     useEffect(() => {
         const fetchForumposts = async () => {
             const response = await fetch(`/api/forumposts/` + id, {
@@ -31,8 +29,6 @@ const ViewForumpost = () => {
                 // dispatch({type: 'SET_FORUMPOSTS', payload: json})
                 dispatch(json)
             }
-
-            // console.log(json)
         }
 
         // if user is logged in
@@ -41,6 +37,7 @@ const ViewForumpost = () => {
         }
     }, [dispatch, user])
 
+    // delete function
     const handleDelete = async () => {
         if (!user) {
             return
@@ -59,16 +56,77 @@ const ViewForumpost = () => {
             dispatch({type: 'DELETE_FORUMPOST', payload: json})
         }
 
+        // return to home page
         navigate("/")
+    }
+
+    // edit function
+    const handleEdit = async () => {
+        if (!user) {
+            return
+        }
+
+        setEditingContent(forumpost.content)
+
+        setEdit(true)
+
+        // sends an edit request
+    }
+
+    // cancels edit and returns to forum page
+    const handleCancel = () => {
+        if (!user) {
+            return
+        }
+
+        setEdit(false)
+    }
+
+    // sets changes to post being edited
+    const handleSubmit = async (e) => {
+        if (!user) {
+            return
+        }
+
+        const title = forumpost.title
+        const description = forumpost.description
+        const content = editingContent
+        const editpost = {title, description, content}
+
+        const response = await fetch('/api/forumposts/' + forumpost._id, {
+            method: 'PATCH',
+            body: JSON.stringify(editpost),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+
+        // newly added post
+        const json = await response.json()
+
+        if (!response.ok) {
+            console.log(json.error)
+        }
+        if (response.ok) {
+            // setTitle('')
+            // setDescription('')
+            dispatch(editpost)
+
+            // dispatch({type: 'CREATE_FORUMPOST', payload: json.forumpost})
+            console.log('forum post edited', json)
+            setEdit(false)
+        }
     }
 
     return (
         <div>
-            {forumpost && <div className="viewForumposts">
+            {/* if editing state is false, show post */}
+            {!editing && forumpost && <div className="viewForumposts">
                 <div className="heading">
                     <h4>{forumpost.title}</h4>
                     <div className="actions">
-                        <button className = 'edit' >Edit</button>
+                        <button className = 'edit' onClick={handleEdit}>Edit</button>
                         <span className="space"></span>
                         <button className = 'delete' onClick={handleDelete}>Delete</button>
                     </div>
@@ -79,9 +137,27 @@ const ViewForumpost = () => {
                 <p>{forumpost.createdAt}</p>
             </div>}
 
+            {/* if editing state is true, show editing interface */}
+            {editing && forumpost && <div className="editForumposts">
+                <div className="heading">
+                    <h4>{forumpost.title}</h4>
+                    <div className="actions">
+                        <button className = 'cancel' onClick={handleCancel}>Cancel</button>
+                        <span className="space"></span>
+                        <button className = 'save' onClick={handleSubmit} >Save</button>
+                    </div>
+
+                    <form>
+                        <label>Content:</label>
+                            <textarea
+                                type = "text"
+                                onChange = {(e) => setEditingContent(e.target.value)}
+                                value = {editingContent}
+                            />
+                    </form>
+                </div>
+            </div>}
         </div>
-
-
     )
 }
  

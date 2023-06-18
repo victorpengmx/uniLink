@@ -35,7 +35,6 @@ const Home = () => {
     return (
         <div className="home">
             <Link to="/forumpostform">New Post</Link>
-            {/* <ForumpostForm/> */}
             <div className='forumposts'>
                 {forumposts && forumposts.map((forumpost) => (
                     <div className="forumpostPreview">
