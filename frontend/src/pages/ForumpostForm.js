@@ -12,7 +12,8 @@ const ForumpostForm = () => {
     const [error, setError] = useState(null)
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        // prevents page from refreshing
+        // e.preventDefault()
 
         // checks if user is logged in
         if (!user) {
@@ -42,7 +43,7 @@ const ForumpostForm = () => {
             setDescription('')
             setContent('')
 
-            dispatch({type: 'CREATE_FORUMPOST', payload: json})
+            dispatch({type: 'CREATE_FORUMPOST', payload: json.forumpost})
 
             setError(null)
             console.log('new forum post created', json)

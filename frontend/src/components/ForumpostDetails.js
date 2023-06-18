@@ -29,9 +29,9 @@ const ForumpostDetails = ({forumpost}) => {
             <div className="heading">
             <h4>{forumpost.title}</h4>
             <div className="actions">
-            <button className = 'edit' /*onClick={handleEdit}*/>Edit</button>
+            <button className = 'edit' >Details</button>
             <span className="space"></span>
-            <button className = 'delete' onClick={handleDelete}>Delete</button>
+            {/* <button className = 'delete' onClick={handleDelete}>Delete</button> */}
             </div>
             </div>
             
