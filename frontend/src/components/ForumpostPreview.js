@@ -1,7 +1,7 @@
 import { useForumpostContext } from "../hooks/useForumpostContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 
-const ForumpostDetails = ({forumpost}) => {
+const ForumpostPreview = ({forumpost}) => {
     // const { dispatch } = useForumpostContext()
     // const { user } = useAuthContext()
     
@@ -43,4 +43,4 @@ const ForumpostDetails = ({forumpost}) => {
     )
 }
 
-export default ForumpostDetails
+export default ForumpostPreview

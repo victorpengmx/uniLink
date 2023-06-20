@@ -5,7 +5,7 @@ import { useForumpostContext } from '../hooks/useForumpostContext'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 // components
-import ForumpostDetails from '../components/ForumpostDetails'
+import ForumpostPreview from '../components/ForumpostPreview'
 
 const Home = () => {
     const {forumposts, dispatch} = useForumpostContext()
@@ -39,7 +39,7 @@ const Home = () => {
                 {forumposts && forumposts.map((forumpost) => (
                     <div className="forumpostPreview">
                         <Link to={`/viewforumposts/${forumpost._id}`}>
-                            <ForumpostDetails key={forumpost._id} forumpost={forumpost}></ForumpostDetails>
+                            <ForumpostPreview key={forumpost._id} forumpost={forumpost}></ForumpostPreview>
                         </Link>
                     </div>
                 ))}

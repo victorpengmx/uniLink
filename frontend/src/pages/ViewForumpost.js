@@ -9,10 +9,10 @@ import { useNavigate } from "react-router-dom";
 const ViewForumpost = () => {
     const {user} = useAuthContext()
     const { id } = useParams()
-    // const {forumpost, dispatch} = useForumpostContext()
+    
     const [forumpost, dispatch] = useState(null)
     const [editing, setEdit] = useState(false)
-    const [editingContent, setEditingContent] = useState({})
+    const [editingContent, setEditingContent] = useState(null)
 
     const navigate = useNavigate()
 
@@ -67,10 +67,7 @@ const ViewForumpost = () => {
         }
 
         setEditingContent(forumpost.content)
-
         setEdit(true)
-
-        // sends an edit request
     }
 
     // cancels edit and returns to forum page
@@ -91,7 +88,10 @@ const ViewForumpost = () => {
         const title = forumpost.title
         const description = forumpost.description
         const content = editingContent
-        const editpost = {title, description, content}
+        const user_id = forumpost.user_id
+        const createdAt = forumpost.createdAt
+
+        const editpost = {title, description, content, user_id, createdAt}
 
         const response = await fetch('/api/forumposts/' + forumpost._id, {
             method: 'PATCH',
@@ -131,7 +131,6 @@ const ViewForumpost = () => {
                         <button className = 'delete' onClick={handleDelete}>Delete</button>
                     </div>
                 </div>
-                
                 <p><strong>Content: </strong>{forumpost.content}</p>
                 <p><strong>User: </strong>{forumpost.user_id}</p>
                 <p>{forumpost.createdAt}</p>
@@ -157,6 +156,8 @@ const ViewForumpost = () => {
                     </form>
                 </div>
             </div>}
+
+
         </div>
     )
 }
