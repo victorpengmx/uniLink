@@ -2,6 +2,10 @@ import {createContext, useReducer} from 'react'
 
 export const ForumpostContext = createContext()
 
+// Global variable for orginal state (not current state)
+
+let a;
+
 /**
  * @param state
  * @param action
@@ -11,6 +15,7 @@ export const ForumpostContext = createContext()
 export const ForumpostReducer = (state, action) => {
     switch (action.type) {
         case "SET_FORUMPOSTS":
+            a = action.payload
             return {
                 forumposts: action.payload,
             };

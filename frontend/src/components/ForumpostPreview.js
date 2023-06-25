@@ -1,45 +1,32 @@
-import { useForumpostContext } from "../hooks/useForumpostContext"
-import { useAuthContext } from "../hooks/useAuthContext"
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const ForumpostPreview = ({forumpost}) => {
-    // const { dispatch } = useForumpostContext()
-    // const { user } = useAuthContext()
-    
-    // const handleDelete = async () => {
-    //     if (!user) {
-    //         return
-    //     }
-
-    //     // sends a delete request to database
-    //     const response = await fetch('/api/forumposts/' + forumpost._id, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Authorization': `Bearer ${user.token}`
-    //         }
-    //     })
-    //     const json = await response.json()
-
-    //     if (response.ok) {
-    //         dispatch({type: 'DELETE_FORUMPOST', payload: json})
-    //     }
-    // }
-
+const ForumpostPreview = ({ forumpost }) => {
     return (
         <div className="forumpostDetails">
             <div className="heading">
-            <h4>{forumpost.title}</h4>
-            <div className="actions">
-            <button className = 'edit' >Details</button>
-            <span className="space"></span>
-            {/* <button className = 'delete' onClick={handleDelete}>Delete</button> */}
+                <h4>{forumpost.title}</h4>
+                <div className="actions">
+                    {/*<button className = 'edit' >Details</button>*/}
+                    <button className="edit"><Link to={`/viewforumposts/${forumpost._id}`}>
+                        Details
+                    </Link></button>
+                    <span className="space"></span>
+                    {/* <button className='delete' onClick={handleDelete}>Delete</button> */}
+                </div>
             </div>
-            </div>
-            
-            <p><strong>Content: </strong>{forumpost.content}</p>
-            <p><strong>User: </strong>{forumpost.user_id}</p>
+
+            <p>
+                <strong>Content: </strong>
+                {forumpost.content}
+            </p>
+            <p>
+                <strong>User: </strong>
+                {forumpost.user_id}
+            </p>
             <p>{forumpost.createdAt}</p>
         </div>
-    )
-}
+    );
+};
 
-export default ForumpostPreview
+export default ForumpostPreview;

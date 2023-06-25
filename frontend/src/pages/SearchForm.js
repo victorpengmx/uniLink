@@ -13,6 +13,7 @@ const SearchForm = () => {
         setSearchQuery('');
     };
 
+    // Dispatch another event
     const handleClear = () => {
         setSearchQuery('');
         dispatch({ type: 'CLEAR_SEARCH' });

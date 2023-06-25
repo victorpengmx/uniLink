@@ -5,7 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 const ForumpostForm = () => {
     const { dispatch } = useForumpostContext()
     const { user } = useAuthContext()
-    
+
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [content, setContent] = useState('')
@@ -21,7 +21,14 @@ const ForumpostForm = () => {
             return
         }
 
-        const forumpost = {title, description, content}
+        const user_id = user._id;
+
+        const forumpost = {
+            title,
+            description,
+            content,
+            user_id
+        }
 
         const response = await fetch('/api/forumposts', {
             method: 'POST',

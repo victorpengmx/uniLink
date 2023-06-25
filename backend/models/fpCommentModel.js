@@ -7,6 +7,13 @@ const fpCommentSchema = new Schema({
         type: String,
         required: true,
     },
+    post: {
+        type: mongoose.Types.ObjectId,
+    },
+    userId: {
+        type: String,
+        required: true,
+    }
 }, {timestamps: true})
 
 module.exports = mongoose.model('FPComment', fpCommentSchema)

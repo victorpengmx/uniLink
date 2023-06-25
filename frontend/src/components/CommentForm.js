@@ -20,7 +20,12 @@ export const CommentForm = () => {
             return
         }
 
-        const comment = {content}
+        const comment = {
+            "content": content,
+            "userId": user.email
+        }
+
+        console.log(comment);
 
         const response = await fetch(`/api/forumposts/${postId}/comments`, {
             method: 'POST',

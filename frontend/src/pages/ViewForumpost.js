@@ -131,6 +131,9 @@ const ViewForumpost = () => {
         }
     }
 
+    console.log(user);
+    console.log(forumpost);
+
     return (
         <div>
             {/* if editing state is false, show post */}
@@ -138,9 +141,16 @@ const ViewForumpost = () => {
                 <div className="heading">
                     <h4>{forumpost.title}</h4>
                     <div className="actions">
-                        <button className = 'edit' onClick={handleEdit}>Edit</button>
-                        <span className="space"></span>
-                        <button className = 'delete' onClick={handleDelete}>Delete</button>
+                        {
+                            user._id == forumpost.user_id &&
+                            <div>
+                            <button className='edit' onClick={handleEdit}>Edit</button>
+                            <span className="space"></span>
+                            <button className = 'delete' onClick={handleDelete}>
+                                Delete
+                            </button>
+                            </div>
+                        }
                     </div>
                 </div>
                 <p>Id = {id}</p>

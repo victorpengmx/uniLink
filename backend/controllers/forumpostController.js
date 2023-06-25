@@ -121,12 +121,13 @@ const getSingleComment = async(req, res) => {
 
 // Create a new comment
 const createComment = async(req, res) => {
-    const {content} = req.body
-
     //add new post to database
     try {
-        const user_id = req.user._id
-        const comment = await FPComment.create({content})
+        const { userId, content } = req.body;
+        const comment = await FPComment.create({
+            "content": content,
+            "userId": userId
+        });
         res.status(200).json(comment)
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -135,13 +136,14 @@ const createComment = async(req, res) => {
 
 // Delete a comment
 const deleteComment = async (req, res) => {
-    const {id} = req.params
+    const {commentId} = req.params
+    console.log(req.params);
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(commentId)) {
         return res.status(404).json({error: 'No such comment'})
     }
 
-    const comment = await FPComment.findOneAndDelete({_id: id})
+    const comment = await FPComment.findOneAndDelete({_id: commentId})
 
     if (!comment) {
         return res.status(404).json({error: 'No such comment'})

@@ -1,52 +1,47 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { useNavigate } from 'react-router-dom';
 import ForumpostPreview from '../components/ForumpostPreview';
 
-const ViewUserPosts = ({ userId }) => {
+const ViewUserPosts = () => {
     const { user } = useAuthContext();
     const [userPosts, setUserPosts] = useState([]);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserPosts = async () => {
             try {
-                const response = await fetch(`/api/forumposts/user/${userId}`, {
+                if (!user) {
+                    return;
+                }
+
+                const response = await fetch(`/api/forumposts/user/${user.id}`, {
                     headers: {
                         Authorization: `Bearer ${user.token}`,
                     },
                 });
-                const data = await response.json();
 
                 if (response.ok) {
+                    const data = await response.json();
                     setUserPosts(data);
                 } else {
-                    console.log('Error fetching user posts:', data.error);
+                    console.log('Failed to fetch user posts');
                 }
             } catch (error) {
                 console.log('Error fetching user posts:', error);
             }
         };
 
-        if (user) {
-            fetchUserPosts();
-        } else {
-            navigate('/login');
-        }
-    }, [userId, user, navigate]);
+        fetchUserPosts();
+    }, [user]);
 
     return (
-        <div className="userPosts">
-            <h2>Your Posts</h2>
-            {userPosts.length > 0 ? (
-                userPosts.map((post) => (
-                    <div className="forumpostPreview" key={post._id}>
-                        <ForumpostPreview forumpost={post} />
+        <div className="home">
+            <div className="forumposts">
+                {userPosts.map((forumpost) => (
+                    <div className="forumpostPreview" key={forumpost._id}>
+                        <ForumpostPreview forumpost={forumpost} />
                     </div>
-                ))
-            ) : (
-                <p>No posts found.</p>
-            )}
+                ))}
+            </div>
         </div>
     );
 };
