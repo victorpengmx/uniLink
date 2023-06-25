@@ -38,15 +38,15 @@ router.patch('/:id', updatePost)
 router.get('/:id/comments/', getAllComments)
 
 // GET single comment
-router.get('/:id/comments/:commentId/', getSingleComment)
+router.get('/:id/comments/:commentId', getSingleComment)
 
 // POST new comment
 router.post('/:id/comments/', createComment)
 
 // DELETE comment
-router.get('/:id/comments/:commentId/', deleteComment)
+router.delete('/:id/comments/:commentId', deleteComment)
 
 // UPDATE comment
-router.get('/:id/comments/:commentId/', updateComment)
+router.patch('/:id/comments/:commentId', updateComment)
 
 module.exports = router

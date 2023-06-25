@@ -31,29 +31,6 @@ export const ForumpostReducer = (state, action) => {
     }
 }
 
-export const FPCommentReducer = (state, action) => {
-    switch (action.type) {
-        case 'SET_COMMENTS':
-            return {
-                comments: action.payload
-            }
-        case 'SET_COMMENT':
-            return {
-                comment: action.payload
-            }
-        case 'CREATE_COMMENT':
-            return {
-                comments: [action.payload, ...state.comments]
-            }
-        case 'DELETE_COMMENT':
-            return {
-                comments: state.comments.filter((comment) => comment._id !== action.payload._id)
-            }
-        default:
-            return state
-    }
-}
-
 export const ForumpostContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(ForumpostReducer, {
         forumposts: null
