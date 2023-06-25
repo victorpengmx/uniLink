@@ -1,20 +1,24 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from 'react'
-import { useForumpostContext } from '../hooks/useForumpostContext'
+import { useState, useEffect } from "react";
+import { useFPCommentContext } from '../hooks/useFPCommentContext'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { Comment } from "../components/Comment";
+import { CommentForm } from "../components/CommentForm";
 
 import { useNavigate } from "react-router-dom";
 
 const ViewForumpost = () => {
     const {user} = useAuthContext()
     const { id } = useParams()
+    const {comments, commentDispatch} = useFPCommentContext()
     
     const [forumpost, dispatch] = useState(null)
     const [editing, setEdit] = useState(false)
     const [editingContent, setEditingContent] = useState(null)
 
     const navigate = useNavigate()
+
+    const [fetched, changeFetch] = useState(false);
 
     useEffect(() => {
         const fetchForumposts = async () => {
@@ -28,14 +32,31 @@ const ViewForumpost = () => {
             if (response.ok) {
                 // dispatch({type: 'SET_FORUMPOSTS', payload: json})
                 dispatch(json)
+                changeFetch(true)
+            }
+        }
+
+        const fetchComments = async () => {
+            if (forumpost) {
+                const response = await fetch(`/api/forumposts/${id}/comments`, {
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+                })
+                const json = await response.json()
+
+                if (response.ok) {
+                    commentDispatch({type: 'SET_COMMENTS', payload: json})
+                }
             }
         }
 
         // if user is logged in
         if (user) {
             fetchForumposts()
+            fetchComments()
         }
-    }, [dispatch, user])
+    }, [dispatch, commentDispatch, user, id, fetched])
 
     // delete function
     const handleDelete = async () => {
@@ -55,7 +76,6 @@ const ViewForumpost = () => {
         if (response.ok) {
             dispatch({type: 'DELETE_FORUMPOST', payload: json})
         }
-
         // return to home page
         navigate("/")
     }
@@ -65,7 +85,6 @@ const ViewForumpost = () => {
         if (!user) {
             return
         }
-
         setEditingContent(forumpost.content)
         setEdit(true)
     }
@@ -75,7 +94,6 @@ const ViewForumpost = () => {
         if (!user) {
             return
         }
-
         setEdit(false)
     }
 
@@ -102,19 +120,13 @@ const ViewForumpost = () => {
             }
         })
 
-        // newly added post
         const json = await response.json()
 
         if (!response.ok) {
             console.log(json.error)
         }
         if (response.ok) {
-            // setTitle('')
-            // setDescription('')
             dispatch(editpost)
-
-            // dispatch({type: 'CREATE_FORUMPOST', payload: json.forumpost})
-            console.log('forum post edited', json)
             setEdit(false)
         }
     }
@@ -157,6 +169,16 @@ const ViewForumpost = () => {
                 </div>
             </div>}
 
+            <div>
+                {forumpost && <CommentForm postId={forumpost._id} />}
+            </div>
+            <div>
+                {console.log(comments)}
+                {console.log(id)}
+                {comments && comments.map((comment) => (
+                    <Comment key={comment._id} comment={comment} id={id} ></Comment>
+                ))}
+            </div>
 
         </div>
     )

@@ -14,6 +14,10 @@ export const ForumpostReducer = (state, action) => {
             return {
                 forumposts: action.payload
             }
+        case 'SET_FORUMPOST':
+            return {
+                forumpost: action.payload
+            }
         case 'CREATE_FORUMPOST':
             return {
                 forumposts: [action.payload, ...state.forumposts]
@@ -21,6 +25,29 @@ export const ForumpostReducer = (state, action) => {
         case 'DELETE_FORUMPOST':
             return {
                 forumposts: state.forumposts.filter((post) => post._id !== action.payload._id)
+            }
+        default:
+            return state
+    }
+}
+
+export const FPCommentReducer = (state, action) => {
+    switch (action.type) {
+        case 'SET_COMMENTS':
+            return {
+                comments: action.payload
+            }
+        case 'SET_COMMENT':
+            return {
+                comment: action.payload
+            }
+        case 'CREATE_COMMENT':
+            return {
+                comments: [action.payload, ...state.comments]
+            }
+        case 'DELETE_COMMENT':
+            return {
+                comments: state.comments.filter((comment) => comment._id !== action.payload._id)
             }
         default:
             return state

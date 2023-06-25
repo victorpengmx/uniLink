@@ -38,7 +38,6 @@ const ForumpostPreview = ({forumpost}) => {
             <p><strong>Content: </strong>{forumpost.content}</p>
             <p><strong>User: </strong>{forumpost.user_id}</p>
             <p>{forumpost.createdAt}</p>
-            
         </div>
     )
 }

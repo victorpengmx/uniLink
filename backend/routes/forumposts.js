@@ -4,7 +4,12 @@ const {
     getSinglePost,
     createPost,
     deletePost,
-    updatePost
+    updatePost,
+    getAllComments,
+    getSingleComment,
+    createComment,
+    deleteComment,
+    updateComment
 } = require('../controllers/forumpostController')
 
 const requireAuth = require('../middleware/requireAuth')
@@ -28,5 +33,20 @@ router.delete('/:id', deletePost)
 
 // UPDATE post
 router.patch('/:id', updatePost)
+
+// GET all comments
+router.get('/:id/comments/', getAllComments)
+
+// GET single comment
+router.get('/:id/comments/:commentId/', getSingleComment)
+
+// POST new comment
+router.post('/:id/comments/', createComment)
+
+// DELETE comment
+router.get('/:id/comments/:commentId/', deleteComment)
+
+// UPDATE comment
+router.get('/:id/comments/:commentId/', updateComment)
 
 module.exports = router
