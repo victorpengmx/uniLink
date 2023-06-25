@@ -8,7 +8,6 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
-
     password: {
         type: String,
         required: true
@@ -17,40 +16,38 @@ const userSchema = new Schema({
 
 // static signup method
 userSchema.statics.signup = async function(email, password) {
-
     // checks that fields are filled
     if (!email || !password) {
         throw Error('All fields must be filled')
     }
 
     // checks if email is already used
-    const exists = await this.findOne({email})
+    const exists = await this.findOne({ email })
 
     if (exists) {
         throw Error('Email already in use')
     }
 
-    const user = await this.create({email, password})
+    const user = await this.create({ email, password })
 
     return user
 }
 
 // static login method
 userSchema.statics.login = async function(email, password) {
-
     // checks that fields are filled
     if (!email || !password) {
         throw Error('All fields must be filled')
     }
 
     // checks if user is already signed up
-    const user = await this.findOne({email})
+    const user = await this.findOne({ email })
 
     if (!user) {
         throw Error('Incorrect email/ email not signed up')
     }
 
-    // checks that password entered matches the password in database
+    // checks that password entered matches the password in the database
     if (user.password !== password) {
         throw Error('Password incorrect')
     }

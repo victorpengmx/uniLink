@@ -8,40 +8,70 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import ViewForumpost from './pages/ViewForumpost'
 import ForumpostForm from './pages/ForumpostForm'
+import SearchForm from "./pages/SearchForm";
+import UserInfo from "./pages/UserInfo";
+import ViewMyPost from "./pages/ViewMyPost";
+
+
+
 
 function App() {
   const { user } = useAuthContext()
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Navbar/>
-        <div className="pages">
-          <Routes>
-            <Route
-              path = "/"
-              element = {user ? <Home /> : <Navigate to="/login"></Navigate>}
-            />
-            <Route
-              path = "/login"
-              element = {!user ? <Login /> : <Navigate to="/"></Navigate>}
-            />
-            <Route
-              path = "/signup"
-              element = {!user ? <Signup /> : <Navigate to="/"></Navigate>}
-            />
-            <Route
-              path = "/forumpostform"
-              element = {user ? <ForumpostForm /> : <Navigate to="/login"></Navigate>}
-            />
-            <Route
-              path = "/viewforumposts/:id"
-              element = {user ? <ViewForumpost /> : <Navigate to="/login"></Navigate>}
-            />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </div>
+      <div className="App">
+        <BrowserRouter>
+          <Navbar/>
+          <div className="pages">
+            <Routes>
+              <Route
+                  path = "/"
+                  element = {user ? <Home /> : <Navigate to="/login"></Navigate>}
+              />
+              <Route
+                  path = "/login"
+                  element = {!user ? <Login /> : <Navigate to="/"></Navigate>}
+              />
+              <Route
+                  path = "/signup"
+                  element = {!user ? <Signup /> : <Navigate to="/"></Navigate>}
+              />
+              <Route
+                  path = "/forumpostform"
+                  element = {user ? <ForumpostForm /> : <Navigate to="/login"></Navigate>}
+              />
+              <Route
+                  path = "/viewforumposts/:id"
+                  element = {user ? <ViewForumpost /> : <Navigate to="/login"></Navigate>}
+              />
+
+              <Route
+                  path = "/searchform"
+                  element = {user ? <SearchForm /> : <Navigate to="/login"></Navigate>}
+              />
+
+              <Route
+                  path = "/userinfo"
+                  element = {user ? <UserInfo /> : <Navigate to="/login"></Navigate>}
+              />
+
+              <Route
+                  path = "/viewmypost"
+                  element = {user ? <ViewMyPost /> : <Navigate to="/login"></Navigate>}
+              />
+
+
+
+
+            </Routes>
+          </div>
+        </BrowserRouter>
+
+
+
+      </div>
+
+
   );
 }
 

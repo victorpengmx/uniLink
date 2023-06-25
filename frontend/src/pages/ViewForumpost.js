@@ -11,7 +11,7 @@ const ViewForumpost = () => {
     const {user} = useAuthContext()
     const { id } = useParams()
     const {comments, commentDispatch} = useFPCommentContext()
-    
+
     const [forumpost, dispatch] = useState(null)
     const [editing, setEdit] = useState(false)
     const [editingContent, setEditingContent] = useState(null)
@@ -143,6 +143,9 @@ const ViewForumpost = () => {
                         <button className = 'delete' onClick={handleDelete}>Delete</button>
                     </div>
                 </div>
+                <p>Id = {id}</p>
+                <p>User id = {user._id}</p>
+                <p>dispatch = {dispatch}</p>
                 <p><strong>Content: </strong>{forumpost.content}</p>
                 <p><strong>User: </strong>{forumpost.user_id}</p>
                 <p>{forumpost.createdAt}</p>
@@ -160,11 +163,11 @@ const ViewForumpost = () => {
 
                     <form>
                         <label>Content:</label>
-                            <textarea
-                                type = "text"
-                                onChange = {(e) => setEditingContent(e.target.value)}
-                                value = {editingContent}
-                            />
+                        <textarea
+                            type = "text"
+                            onChange = {(e) => setEditingContent(e.target.value)}
+                            value = {editingContent}
+                        />
                     </form>
                 </div>
             </div>}
@@ -183,5 +186,5 @@ const ViewForumpost = () => {
         </div>
     )
 }
- 
+
 export default ViewForumpost;

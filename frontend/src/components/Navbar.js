@@ -1,15 +1,16 @@
-import { Link } from 'react-router-dom'
-import { useLogout } from '../hooks/useLogout'
-import { useAuthContext } from '../hooks/useAuthContext'
-
+import { useLogout } from '../hooks/useLogout';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { Link, useNavigate } from 'react-router-dom';
+import SearchForm from '../pages/SearchForm';
+import ViewForumpost from "../pages/ViewForumpost";
 
 const Navbar = () => {
-    const {logout} = useLogout()
-    const {user} = useAuthContext()
+    const { logout } = useLogout();
+    const { user } = useAuthContext();
 
     const handleClick = () => {
-        logout()
-    }
+        logout();
+    };
 
     return (
         <header>
@@ -17,8 +18,20 @@ const Navbar = () => {
                 <Link to="/">
                     <h2>uniLink</h2>
                 </Link>
-                <nav>
-                    {/* if user is logged in */}
+                <nav className="navbar-links">
+                    <Link to="/">Home</Link>
+                </nav>
+                <nav className="navbar-links">
+                    <Link to="/forumpostform">New Post</Link> {/* New Post tab */}
+                </nav>
+
+                <nav className="navbar-links">
+
+                    <Link to="/viewmypost">My Post</Link> {/* New Post tab */}
+                </nav>
+
+                <nav className="navbar-user">
+                    {/* If user is logged in */}
                     {user && (
                         <div>
                             <span>{user.email}</span>
@@ -26,7 +39,7 @@ const Navbar = () => {
                         </div>
                     )}
 
-                    {/* if user is not logged in */}
+                    {/* If user is not logged in */}
                     {!user && (
                         <div>
                             <Link to="/login">Login</Link>
@@ -36,7 +49,7 @@ const Navbar = () => {
                 </nav>
             </div>
         </header>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;

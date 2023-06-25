@@ -5,31 +5,33 @@ export const ForumpostContext = createContext()
 /**
  * @param state
  * @param action
- * 
+ *
  * keeps the local state in sync with the database
  */
 export const ForumpostReducer = (state, action) => {
     switch (action.type) {
-        case 'SET_FORUMPOSTS':
+        case "SET_FORUMPOSTS":
             return {
-                forumposts: action.payload
-            }
-        case 'SET_FORUMPOST':
+                forumposts: action.payload,
+            };
+        case "CREATE_FORUMPOST":
             return {
-                forumpost: action.payload
-            }
-        case 'CREATE_FORUMPOST':
+                forumposts: [action.payload, ...state.forumposts],
+            };
+        case "DELETE_FORUMPOST":
             return {
-                forumposts: [action.payload, ...state.forumposts]
-            }
-        case 'DELETE_FORUMPOST':
+                forumposts: state.forumposts.filter((post) => post._id !== action.payload._id),
+            };
+        case "SEARCH_FORUMPOSTS":
             return {
-                forumposts: state.forumposts.filter((post) => post._id !== action.payload._id)
-            }
+                forumposts: state.forumposts.filter((post) =>
+                    post.title.toLowerCase().includes(action.payload.toLowerCase())
+                ),
+            };
         default:
-            return state
+            return state;
     }
-}
+};
 
 export const FPCommentReducer = (state, action) => {
     switch (action.type) {

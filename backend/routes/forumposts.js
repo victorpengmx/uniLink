@@ -1,6 +1,7 @@
 const express = require('express')
 const {
     getAllPosts,
+    getUserPosts,
     getSinglePost,
     createPost,
     deletePost,
@@ -9,7 +10,7 @@ const {
     getSingleComment,
     createComment,
     deleteComment,
-    updateComment
+    updateComment,
 } = require('../controllers/forumpostController')
 
 const requireAuth = require('../middleware/requireAuth')
@@ -21,6 +22,10 @@ router.use(requireAuth)
 
 // GET all posts
 router.get('/', getAllPosts)
+
+// GET user post
+router.get('/user/:userId', getUserPosts);
+
 
 // GET single post
 router.get('/:id', getSinglePost)

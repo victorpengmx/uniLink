@@ -11,6 +11,18 @@ const getAllPosts = async(req, res) => {
     res.status(200).json(posts)
 }
 
+// Get user post
+const getUserPosts = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const userPosts = await Forumpost.find({ user_id: userId });
+
+        res.json(userPosts);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch user posts' });
+    }
+};
+
 // Get a single post
 const getSinglePost = async(req, res) => {
 
@@ -64,7 +76,7 @@ const deletePost = async (req, res) => {
 // Update a post
 const updatePost = async(req, res) => {
     const {id} = req.params
-    
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such post'})
     }
@@ -141,7 +153,7 @@ const deleteComment = async (req, res) => {
 // Update a comment
 const updateComment = async(req, res) => {
     const {id} = req.params
-    
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such comment'})
     }
@@ -160,8 +172,9 @@ const updateComment = async(req, res) => {
 
 module.exports = {
     getAllPosts,
+    getUserPosts,
     getSinglePost,
-    createPost, 
+    createPost,
     deletePost,
     updatePost,
     getAllComments,
