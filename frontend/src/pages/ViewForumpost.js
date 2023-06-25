@@ -176,7 +176,7 @@ const ViewForumpost = () => {
                 {forumpost && <CommentForm postId={forumpost._id} />}
             </div>
             <div>
-                {console.log(comments)}
+                {console.log(Array.isArray(comments))}
                 {console.log(id)}
                 {comments && comments.map((comment) => (
                     <Comment key={comment._id} comment={comment} id={id} ></Comment>

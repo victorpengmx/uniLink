@@ -2,14 +2,7 @@ import {createContext, useReducer} from 'react'
 
 export const FPCommentContext = createContext()
 
-/**
- * @param state
- * @param action
- * 
- * keeps the local state in sync with the database
- */
-
-export const FPCommentReducer = (state, action) => {
+export const FPCommentReducer = (commentState, action) => {
     switch (action.type) {
         case 'SET_COMMENTS':
             return {
@@ -21,14 +14,14 @@ export const FPCommentReducer = (state, action) => {
             }
         case 'CREATE_COMMENT':
             return {
-                comments: [action.payload, ...state.comments]
+                comments: [action.payload, ...commentState.comments]
             }
         case 'DELETE_COMMENT':
             return {
-                comments: state.comments.filter((comment) => comment._id !== action.payload._id)
+                comments: commentState.comments.filter((comment) => comment._id !== action.payload._id)
             }
         default:
-            return state
+            return commentState
     }
 }
 
