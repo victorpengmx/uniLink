@@ -118,14 +118,3 @@ npm run build
 5. Access the deployed application using the appropriate URL.
 
 Please note that the deployment process may vary depending on your hosting provider and server configuration. Make sure to follow the specific deployment instructions provided by your hosting platform.
-
-## Contributing Guidelines
-We welcome contributions from other developers to the uniLink project. If you would like to contribute, please follow these guidelines:
-1. Before starting work on a new feature or bug fix, create an issue to discuss the proposed changes.
-2. Fork the repository and create a new branch for your changes.
-3. Ensure that your code follows the project's coding style and conventions.
-4. Write clear and concise commit messages.
-5. Submit a pull request with your changes, referencing the related issue if applicable.
-6. Be open to feedback and be prepared to make further changes based on code review.
-
-For more information on contributing to the project, please refer to the **CONTRIBUTING.md** file.
