@@ -25,7 +25,8 @@ export const CommentForm = () => {
             "userId": user.email
         }
 
-        console.log(comment);
+        // console.log(comment);
+        // console.log(user);
 
         const response = await fetch(`/api/forumposts/${postId}/comments`, {
             method: 'POST',
@@ -45,7 +46,7 @@ export const CommentForm = () => {
             setContent('')
             setError(null)
             console.log('new comment created', json)
-            commentDispatch({type: 'SET_COMMENTS', payload: json})
+            commentDispatch({type: 'CREATE_COMMENT', payload: json})
         }
     }
 

@@ -17,7 +17,7 @@ header {
   top: 0;
   z-index: 10;
 }
-header .container{
+header .navbar{
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
@@ -163,6 +163,9 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+textarea {
+  min-height: 100px;
+}
 
 /* navigation bar*/
 nav {
@@ -173,6 +176,10 @@ nav a {
   margin-left: 10px;
   border-radius: 3px;
   padding: 5px;
+}
+nav .navbarlinks{
+  display: flex;
+  justify-content: space-around;
 }
 nav button {
   background: white;

@@ -15,7 +15,7 @@ const getAllPosts = async(req, res) => {
 const getUserPosts = async (req, res) => {
     try {
         const userId = req.params.userId;
-        const userPosts = await Forumpost.find({ user_id: userId });
+        const userPosts = await ForumPost.find({ user_id: userId });
 
         res.json(userPosts);
     } catch (error) {
@@ -154,13 +154,13 @@ const deleteComment = async (req, res) => {
 
 // Update a comment
 const updateComment = async(req, res) => {
-    const {id} = req.params
+    const {commentId} = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(commentId)) {
         return res.status(404).json({error: 'No such comment'})
     }
 
-    const comment = await FPComment.findOneAndUpdate({_id: id}, {
+    const comment = await FPComment.findOneAndUpdate({_id: commentId}, {
         ...req.body
     })
 

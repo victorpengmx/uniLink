@@ -7,7 +7,6 @@ const ForumpostForm = () => {
     const { user } = useAuthContext()
 
     const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
     const [content, setContent] = useState('')
     const [error, setError] = useState(null)
 
@@ -21,14 +20,10 @@ const ForumpostForm = () => {
             return
         }
 
-        const user_id = user._id;
+        // const user_id = user._id;
+        const user_id = user.email;
 
-        const forumpost = {
-            title,
-            description,
-            content,
-            user_id
-        }
+        const forumpost = {title, content, user_id}
 
         const response = await fetch('/api/forumposts', {
             method: 'POST',
@@ -47,10 +42,9 @@ const ForumpostForm = () => {
         }
         if (response.ok) {
             setTitle('')
-            setDescription('')
             setContent('')
 
-            dispatch({type: 'CREATE_FORUMPOST', payload: json.forumpost})
+            dispatch({type: 'CREATE_FORUMPOST', payload: json})
 
             setError(null)
             console.log('new forum post created', json)
@@ -68,13 +62,6 @@ const ForumpostForm = () => {
                 onChange = {(e) => setTitle(e.target.value)}
                 value = {title}
             />
-
-            {/* <label>Description:</label>
-            <input
-                type = "text"
-                onChange = {(e) => setReps(e.target.value)}
-                value = {description}
-            /> */}
 
             <label>Content:</label>
             <textarea

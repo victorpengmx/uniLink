@@ -11,10 +11,10 @@ const ViewForumpost = () => {
     const {user} = useAuthContext()
     const { id } = useParams()
     const {comments, commentDispatch} = useFPCommentContext()
-
+    
     const [forumpost, dispatch] = useState(null)
     const [editing, setEdit] = useState(false)
-    const [editingContent, setEditingContent] = useState(null)
+    const [editingContent, setEditingContent] = useState('')
 
     const navigate = useNavigate()
 
@@ -53,8 +53,8 @@ const ViewForumpost = () => {
 
         // if user is logged in
         if (user) {
-            fetchForumposts()
-            fetchComments()
+            fetchForumposts();
+            fetchComments();
         }
     }, [dispatch, commentDispatch, user, id, fetched])
 
@@ -104,12 +104,12 @@ const ViewForumpost = () => {
         }
 
         const title = forumpost.title
-        const description = forumpost.description
         const content = editingContent
         const user_id = forumpost.user_id
+        // const user_id = user.email
         const createdAt = forumpost.createdAt
 
-        const editpost = {title, description, content, user_id, createdAt}
+        const editpost = {title, content, user_id, createdAt}
 
         const response = await fetch('/api/forumposts/' + forumpost._id, {
             method: 'PATCH',
@@ -142,7 +142,7 @@ const ViewForumpost = () => {
                     <h4>{forumpost.title}</h4>
                     <div className="actions">
                         {
-                            user._id == forumpost.user_id &&
+                            // user._id == forumpost.user_id &&
                             <div>
                             <button className='edit' onClick={handleEdit}>Edit</button>
                             <span className="space"></span>
@@ -154,8 +154,8 @@ const ViewForumpost = () => {
                     </div>
                 </div>
                 <p>Id = {id}</p>
-                <p>User id = {user._id}</p>
-                <p>dispatch = {dispatch}</p>
+                {/* <p>User id = {user._id}</p> */}
+                {/* <p>dispatch = {dispatch}</p> */}
                 <p><strong>Content: </strong>{forumpost.content}</p>
                 <p><strong>User: </strong>{forumpost.user_id}</p>
                 <p>{forumpost.createdAt}</p>
@@ -186,8 +186,6 @@ const ViewForumpost = () => {
                 {forumpost && <CommentForm postId={forumpost._id} />}
             </div>
             <div>
-                {console.log(Array.isArray(comments))}
-                {console.log(id)}
                 {comments && comments.map((comment) => (
                     <Comment key={comment._id} comment={comment} id={id} ></Comment>
                 ))}

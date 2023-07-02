@@ -16,6 +16,10 @@ export const FPCommentReducer = (commentState, action) => {
             return {
                 comments: [action.payload, ...commentState.comments]
             }
+        case 'UPDATE_COMMENT':
+            return {
+                comment: action.payload
+            }
         case 'DELETE_COMMENT':
             return {
                 comments: commentState.comments.filter((comment) => comment._id !== action.payload._id)
