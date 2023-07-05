@@ -20,10 +20,10 @@ const ForumpostForm = () => {
             return
         }
 
-        // const user_id = user._id;
-        const user_id = user.email;
-
-        const forumpost = {title, content, user_id}
+        const forumpost = {
+            "title": title, 
+            "content": content, 
+            "user_id": user.email}
 
         const response = await fetch('/api/forumposts', {
             method: 'POST',
@@ -47,6 +47,7 @@ const ForumpostForm = () => {
             dispatch({type: 'CREATE_FORUMPOST', payload: json})
 
             setError(null)
+            console.log(user.email)
             console.log('new forum post created', json)
         }
     }

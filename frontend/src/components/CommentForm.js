@@ -53,9 +53,10 @@ export const CommentForm = () => {
     return (
         <div>
         <form className="createComment" onSubmit={handleSubmit}>
-            <label>Content:</label>
+            {/* <label>Content:</label> */}
             <textarea
                 type = "text"
+                placeholder="Write a comment"
                 onChange = {(e) => setContent(e.target.value)}
                 value = {content}
             />
