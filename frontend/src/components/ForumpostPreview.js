@@ -5,7 +5,7 @@ const ForumpostPreview = ({ forumpost }) => {
     return (
         <div className="forumpostDetails">
             <div className="heading">
-                <h4>{forumpost.title}</h4>
+                <h6>{forumpost.title}</h6>
                 <div className="actions">
                     {/*<button className = 'edit' >Details</button>*/}
                     <button className="edit"><Link to={`/viewforumposts/${forumpost._id}`}>

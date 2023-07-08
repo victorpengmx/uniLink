@@ -3,12 +3,11 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { useParams } from "react-router-dom"
 import { useFPCommentContext } from "../hooks/useFPCommentContext"
 
-export const CommentForm = () => {
+export const CommentForm = (postId) => {
 
     const [content, setContent] = useState('')
     const [error, setError] = useState(null)
     const { commentDispatch } = useFPCommentContext()
-    const { postId } = useParams()
 
     const {user} = useAuthContext()
 
@@ -22,11 +21,9 @@ export const CommentForm = () => {
 
         const comment = {
             "content": content,
+            "postId": postId,
             "userId": user.email
         }
-
-        // console.log(comment);
-        // console.log(user);
 
         const response = await fetch(`/api/forumposts/${postId}/comments`, {
             method: 'POST',
@@ -46,6 +43,7 @@ export const CommentForm = () => {
             setContent('')
             setError(null)
             console.log('new comment created', json)
+            console.log(postId)
             commentDispatch({type: 'CREATE_COMMENT', payload: json})
         }
     }

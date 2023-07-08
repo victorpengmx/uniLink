@@ -80,8 +80,8 @@ const ViewForumpost = () => {
         navigate("/")
     }
 
-    // edit function
-    const handleEdit = async () => {
+    // hsows editing interface
+    const handleShowEditInterface = async () => {
         if (!user) {
             return
         }
@@ -131,8 +131,7 @@ const ViewForumpost = () => {
         }
     }
 
-    console.log(user);
-    console.log(forumpost);
+    const postId = id
 
     return (
         <div>
@@ -144,7 +143,7 @@ const ViewForumpost = () => {
                         {
                             // user._id == forumpost.user_id &&
                             <div>
-                            <button className='edit' onClick={handleEdit}>Edit</button>
+                            <button className='edit' onClick={handleShowEditInterface}>Edit</button>
                             <span className="space"></span>
                             <button className = 'delete' onClick={handleDelete}>
                                 Delete
@@ -183,11 +182,11 @@ const ViewForumpost = () => {
             </div>}
 
             <div>
-                {forumpost && <CommentForm postId={forumpost._id} />}
+                {forumpost && <CommentForm postId={postId} />}
             </div>
             <div>
                 {comments && comments.map((comment) => (
-                    <Comment key={comment._id} comment={comment} id={id} ></Comment>
+                    <Comment key={comment._id} comment={comment} postId={postId} ></Comment>
                 ))}
             </div>
 

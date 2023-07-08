@@ -1,21 +1,43 @@
 import { useFPCommentContext } from '../hooks/useFPCommentContext'
 import { useAuthContext } from '../hooks/useAuthContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
-export const Comment = ({ comment, id }) => {
+export const Comment = ({ comment, postId }) => {
     const {user} = useAuthContext()
     const { commentDispatch } = useFPCommentContext()
     
     const [commentDetails, setCommentDetails] = useState(comment)
     const [editing, setEdit] = useState(false)
-    const [editingContent, setEditingContent] = useState('')
+    const [editingContent, setEditingContent] = useState(comment.content)
+
+    const [fetched, changeFetch] = useState(false);
+
+    useEffect(() => {
+        const fetchComment = async () => {
+            const response = await fetch(`/api/forumposts/` + postId + "/comments/" + comment._id, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+            const json = await response.json()
+
+            if (response.ok) {
+                setCommentDetails(json)
+                changeFetch(true)
+            }
+
+            if(user) {
+                fetchComment()
+            }
+        }
+    }, [fetched, user])
 
     const handleShowEditInterface = async () => {
         if (!user) {
             return
         }
-        setEditingContent(comment.content)
+        setEditingContent(editingContent)
         setEdit(true)
     }
 
@@ -33,12 +55,12 @@ export const Comment = ({ comment, id }) => {
         }
 
         const content = editingContent
-        const user_id = comment.user_id
+        const userId = comment.userId
         const createdAt = comment.createdAt
 
-        const editComment = {content, user_id, createdAt}
+        const editComment = {content, userId, postId, createdAt}
 
-        const response = await fetch(`/api/forumposts/${id}/comments/${comment._id}`, {
+        const response = await fetch(`/api/forumposts/${postId}/comments/${comment._id}`, {
             method: 'PATCH',
             body: JSON.stringify(editComment),
             headers: {
@@ -63,7 +85,7 @@ export const Comment = ({ comment, id }) => {
             return
         }
 
-        const response = await fetch(`/api/forumposts/${id}/comments/${comment._id}`, {
+        const response = await fetch(`/api/forumposts/${postId}/comments/${comment._id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${user.token}`

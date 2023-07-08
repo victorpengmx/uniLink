@@ -7,8 +7,9 @@ const fpCommentSchema = new Schema({
         type: String,
         required: true,
     },
-    post: {
-        type: mongoose.Types.ObjectId,
+    postId: {
+        // type: mongoose.Types.ObjectId,
+        type: String,
     },
     userId: {
         type: String,

@@ -10,26 +10,29 @@ body {
   background: lightgrey;
   margin: 0;
   font-family: "Roboto";
+  padding-top: 70px;
 }
-header {
-  background: white;
-  position: sticky;
-  top: 0;
+.navbar {
+  background: rgb(238, 236, 236);
+  /* position: sticky; */
+  /* top: 0; */
   z-index: 10;
 }
-header .navbar{
+/* header .navbar{
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-header a {
+} */
+/* header a { */
   /* max-height: 80px; */
-  color: black;
+  /* color: black;
   text-decoration: none;
-}
+} */
+
+
 .pages {
   max-width: 1200px;
   padding: 200px, 0;
@@ -168,7 +171,7 @@ textarea {
 }
 
 /* navigation bar*/
-nav {
+/* nav {
   display: flex;
   align-items: center;
 }
@@ -195,7 +198,7 @@ nav button {
 
 nav a:hover {
   background-color: lightblue;
-}
+} */
 
 /* signup and login forms */
 form.signup, form.login {

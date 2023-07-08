@@ -94,9 +94,11 @@ const updatePost = async(req, res) => {
 
 // Get all comments
 const getAllComments = async(req, res) => {
-    const user_id = req.user._id
+    // const user_id = req.user._id
+    const {postId} = req.params
+    console.log(postId)
 
-    const comments = await FPComment.find({ /*user_id*/ }).sort({createdAt: -1})
+    const comments = await FPComment.find(/*{ postId: postId }*/).sort({createdAt: -1})
 
     res.status(200).json(comments)
 }
@@ -123,9 +125,10 @@ const getSingleComment = async(req, res) => {
 const createComment = async(req, res) => {
     //add new post to database
     try {
-        const { userId, content } = req.body;
+        const { content, postId, userId } = req.body;
         const comment = await FPComment.create({
             "content": content,
+            "postId": postId.postId,
             "userId": userId
         });
         res.status(200).json(comment)

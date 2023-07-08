@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // pages and components
 import Home from './pages/Home'
-import Navbar from './components/Navbar'
+import NavigationBar from './components/NavigationBar'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import ViewForumpost from './pages/ViewForumpost'
@@ -14,14 +15,13 @@ import ViewMyPost from "./pages/ViewMyPost";
 
 
 
-
 function App() {
   const { user } = useAuthContext()
 
   return (
       <div className="App">
         <BrowserRouter>
-          <Navbar/>
+          <NavigationBar/>
           <div className="pages">
             <Routes>
               <Route
@@ -59,19 +59,10 @@ function App() {
                   path = "/viewmypost"
                   element = {user ? <ViewMyPost /> : <Navigate to="/login"></Navigate>}
               />
-
-
-
-
             </Routes>
           </div>
         </BrowserRouter>
-
-
-
       </div>
-
-
   );
 }
 
