@@ -5,6 +5,7 @@ import App from './App';
 import { ForumpostContextProvider } from './context/ForumpostContext';
 import { FPCommentContextProvider } from './context/FPCommentContext';
 import { AuthContextProvider } from './context/AuthContext';
+import { EventContextProvider } from './context/EventContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,9 @@ root.render(
     <AuthContextProvider>
       <ForumpostContextProvider>
         <FPCommentContextProvider>
-          <App />
+          <EventContextProvider>
+            <App />
+          </EventContextProvider>
         </FPCommentContextProvider>
       </ForumpostContextProvider>
     </AuthContextProvider>

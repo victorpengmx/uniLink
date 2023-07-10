@@ -12,6 +12,7 @@ import ForumpostForm from './pages/ForumpostForm'
 import SearchForm from "./pages/SearchForm";
 import UserInfo from "./pages/UserInfo";
 import ViewMyPost from "./pages/ViewMyPost";
+import EventsPage from './pages/EventsPage';
 
 
 
@@ -58,6 +59,11 @@ function App() {
               <Route
                   path = "/viewmypost"
                   element = {user ? <ViewMyPost /> : <Navigate to="/login"></Navigate>}
+              />
+              
+              <Route
+                  path = "/events"
+                  element = {user ? <EventsPage /> : <Navigate to="/login"></Navigate>}
               />
             </Routes>
           </div>

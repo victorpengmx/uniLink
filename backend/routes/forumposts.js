@@ -26,7 +26,6 @@ router.get('/', getAllPosts)
 // GET user post
 router.get('/user/:userId', getUserPosts);
 
-
 // GET single post
 router.get('/:id', getSinglePost)
 

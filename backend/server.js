@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/user')
 const forumpostsRoutes = require('./routes/forumposts')
+const eventRoutes = require('./routes/eventRoutes')
 
 // express app
 const app = express()
@@ -20,6 +21,8 @@ app.use((req, res, next) => {
 app.use('/api/user', userRoutes)
 
 app.use('/api/forumposts', forumpostsRoutes)
+
+app.use('/api/events', eventRoutes)
 
 // connect to database
 const URI = `${process.env.MONGO_URI}`;

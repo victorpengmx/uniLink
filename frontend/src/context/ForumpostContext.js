@@ -6,12 +6,6 @@ export const ForumpostContext = createContext()
 
 let a;
 
-/**
- * @param state
- * @param action
- *
- * keeps the local state in sync with the database
- */
 export const ForumpostReducer = (state, action) => {
     switch (action.type) {
         case "SET_FORUMPOSTS":

@@ -1,9 +1,9 @@
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { location } from 'react-router-dom'
-import SearchForm from '../pages/SearchForm';
-import ViewForumpost from "../pages/ViewForumpost";
+// import { location } from 'react-router-dom'
+// import SearchForm from '../pages/SearchForm';
+// import ViewForumpost from "../pages/ViewForumpost";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -38,6 +38,7 @@ function NavigationBar() {
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/forumpostform">New Post</Nav.Link>
               <Nav.Link as={Link} to="/viewmypost">My Posts</Nav.Link>
+              <Nav.Link as={Link} to="/events">Events</Nav.Link>
             </Nav>
 
             <Nav className="ms-auto">
