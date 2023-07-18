@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useEventContext } from "../hooks/useEventContext"
-import { Link } from 'react-router-dom';
+import DatePicker from "react-datepicker";
 
 const EventPreview = ({ event }) => {
     const {user} = useAuthContext()
@@ -26,7 +26,7 @@ const EventPreview = ({ event }) => {
       }
 
     return (
-        <div className="eventPreview">
+        <div className="forumpostDetails">
             <div className="heading">
                 <h6>Title: {event.title}</h6>
                 <div className="actions">
@@ -44,8 +44,12 @@ const EventPreview = ({ event }) => {
                 {event.description}
             </p>
             <p>
-                <strong>Time: </strong>
-                {event.time}
+                <strong>Start Date: </strong>
+                {event.startDate}
+            </p>
+            <p>
+                <strong>End Date: </strong>
+                {event.endDate}
             </p>
             <p>
                 <strong>User: </strong>

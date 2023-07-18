@@ -42,13 +42,13 @@ const getSingleEvent = async(req, res) => {
 
 // Create a new event
 const createEvent = async(req, res) => {
-    const {title, time, description, user_id} = req.body
+    const {title, description, startDate, endDate, user_id} = req.body
 
     //add new event to database
     try {
         // const user_id = req.user._id
 
-        const event = await Event.create({title, description, time, user_id})
+        const event = await Event.create({title, description, startDate, endDate, user_id})
         res.status(200).json(event)
     } catch (error) {
         res.status(400).json({error: error.message})

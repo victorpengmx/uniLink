@@ -11,9 +11,12 @@ const eventSchema = new Schema({
         type: String,
         required: true,
     },
-    time: {
-        type: String,
+    startDate: {
+        type: Date,
         required: true,
+    },
+    endDate: {
+        type: Date,
     },
     user_id: {
         type: String,

@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useEventContext } from "../hooks/useEventContext"
-import { Navigate } from "react-router-dom"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const EventForm = () => {
     const { eventDispatch } = useEventContext()
@@ -9,8 +10,10 @@ const EventForm = () => {
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [time, setTime] = useState('')
     const [error, setError] = useState(null)
+
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
     const handleSubmit = async (e) => {
         // prevents page from refreshing
@@ -22,7 +25,7 @@ const EventForm = () => {
             return
         }
 
-        const event = {title, description, time, "user_id": user.email}
+        const event = {title, description, startDate, endDate, "user_id": user.email}
 
         const response = await fetch('/api/events', {
             method: 'POST',
@@ -42,7 +45,6 @@ const EventForm = () => {
         if (response.ok) {
             setTitle('')
             setDescription('')
-            setTime('')
 
             eventDispatch({type: 'CREATE_EVENT', payload: json})
 
@@ -70,14 +72,31 @@ const EventForm = () => {
                 value = {description}
             />
 
-            <label>Time:</label>
-            <input
-                type = "text"
-                onChange = {(e) => setTime(e.target.value)}
-                value = {time}
-            />
+            <label>Start Date and Time:</label>
 
-            <button>Create event</button>
+            <p><DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                timeCaption="time"
+                dateFormat="MMMM d, yyyy h:mm aa"
+            /></p>
+
+            <label>End Date and Time:</label>
+
+            <p><DatePicker
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                timeCaption="time"
+                dateFormat="MMMM d, yyyy h:mm aa"
+            /></p>
+
+            <button onClick={console.log(startDate.toLocaleString())}>Create event</button>
 
             {error && <div className="error">{error}</div>}
         </form>
