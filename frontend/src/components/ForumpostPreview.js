@@ -24,7 +24,7 @@ const ForumpostPreview = ({ forumpost }) => {
                 <strong>User: </strong>
                 {forumpost.user_id}
             </p>
-            <p>{forumpost.createdAt}</p>
+            <p>{new Date(forumpost.createdAt).toLocaleString()}</p>
         </div>
     );
 };

@@ -56,7 +56,7 @@ const EventForm = () => {
 
     return (
         <form className="createEvent" onSubmit={handleSubmit}>
-            <h3>Create a new event</h3>
+            <h3>New Event</h3>
 
             <label>Event Title</label>
             <input
@@ -65,16 +65,16 @@ const EventForm = () => {
                 value = {title}
             />
             
-            <label>Description:</label>
+            <label>Description</label>
             <textarea
                 type = "text"
                 onChange = {(e) => setDescription(e.target.value)}
                 value = {description}
             />
 
-            <label>Start Date and Time:</label>
+            <label>Start Date and Time</label>
 
-            <p><DatePicker
+            <div><DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 showTimeSelect
@@ -82,11 +82,11 @@ const EventForm = () => {
                 timeIntervals={15}
                 timeCaption="time"
                 dateFormat="MMMM d, yyyy h:mm aa"
-            /></p>
+            /></div>
 
-            <label>End Date and Time:</label>
+            <label>End Date and Time</label>
 
-            <p><DatePicker
+            <div><DatePicker
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 showTimeSelect
@@ -94,9 +94,9 @@ const EventForm = () => {
                 timeIntervals={15}
                 timeCaption="time"
                 dateFormat="MMMM d, yyyy h:mm aa"
-            /></p>
+            /></div>
 
-            <button onClick={console.log(startDate.toLocaleString())}>Create event</button>
+            <button>Create Event</button>
 
             {error && <div className="error">{error}</div>}
         </form>

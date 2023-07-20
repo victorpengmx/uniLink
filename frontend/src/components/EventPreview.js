@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useEventContext } from "../hooks/useEventContext"
-import DatePicker from "react-datepicker";
+import { Link } from 'react-router-dom';
 
 const EventPreview = ({ event }) => {
     const {user} = useAuthContext()
@@ -27,6 +27,7 @@ const EventPreview = ({ event }) => {
 
     return (
         <div className="forumpostDetails">
+            {/* {console.log((typeof event.startDate === 'string'))} */}
             <div className="heading">
                 <h6>Title: {event.title}</h6>
                 <div className="actions">
@@ -45,19 +46,23 @@ const EventPreview = ({ event }) => {
             </p>
             <p>
                 <strong>Start Date: </strong>
-                {event.startDate}
+                {new Date(event.startDate).toLocaleString()}
             </p>
             <p>
                 <strong>End Date: </strong>
-                {event.endDate}
+                {new Date(event.endDate).toLocaleString()}
             </p>
             <p>
                 <strong>User: </strong>
                 {event.user_id}
             </p>
-            <p>{event.createdAt}</p>
+            <p>{new Date(event.createdAt).toLocaleString()}</p>
 
             <button className='delete' onClick={handleDelete}>Delete</button>
+
+            <button className="edit"><Link to={`/events/${event._id}`} id={event._id}>
+                Details
+            </Link></button>
         </div>
     );
 };

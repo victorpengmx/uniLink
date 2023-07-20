@@ -2,7 +2,6 @@ import { useFPCommentContext } from '../hooks/useFPCommentContext'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useState, useEffect } from 'react'
 
-
 export const Comment = ({ comment, postId }) => {
     const {user} = useAuthContext()
     const { commentDispatch } = useFPCommentContext()
@@ -103,7 +102,7 @@ export const Comment = ({ comment, postId }) => {
             {!editing && <div className="forumpostDetails">
                 <p><strong>Content: </strong>{commentDetails.content}</p>
                 <p><strong>User: </strong>{commentDetails.userId}</p>
-                <p><strong>Created At:</strong>{commentDetails.createdAt}</p>
+                <p><strong>Created At: </strong>{new Date(commentDetails.createdAt).toLocaleString()}</p>
                 <button className='edit' onClick={handleShowEditInterface}>Edit</button>
                 <button className='delete' onClick={handleDelete}>Delete</button>
             </div>}

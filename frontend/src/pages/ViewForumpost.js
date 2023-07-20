@@ -16,9 +16,9 @@ const ViewForumpost = () => {
     const [editing, setEdit] = useState(false)
     const [editingContent, setEditingContent] = useState('')
 
-    const navigate = useNavigate()
-
     const [fetched, changeFetch] = useState(false);
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchForumposts = async () => {
@@ -28,6 +28,7 @@ const ViewForumpost = () => {
                 }
             })
             const json = await response.json()
+            console.log(json)
 
             if (response.ok) {
                 // dispatch({type: 'SET_FORUMPOSTS', payload: json})
@@ -80,7 +81,7 @@ const ViewForumpost = () => {
         navigate("/")
     }
 
-    // hsows editing interface
+    // shows editing interface
     const handleShowEditInterface = async () => {
         if (!user) {
             return
@@ -157,7 +158,7 @@ const ViewForumpost = () => {
                 {/* <p>dispatch = {dispatch}</p> */}
                 <p><strong>Content: </strong>{forumpost.content}</p>
                 <p><strong>User: </strong>{forumpost.user_id}</p>
-                <p>{forumpost.createdAt}</p>
+                <p>{new Date(forumpost.createdAt).toLocaleString()}</p>
             </div>}
 
             {/* if editing state is true, show editing interface */}
