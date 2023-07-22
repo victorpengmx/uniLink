@@ -2,10 +2,22 @@ import React from 'react';
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useEventContext } from "../hooks/useEventContext"
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
 const EventPreview = ({ event }) => {
+    const navigate = useNavigate()
+
     const {user} = useAuthContext()
     const { eventDispatch } = useEventContext()
+
+    const handleNavigate = () => {
+        navigate(`/events/${event._id}`)
+    }
 
     const handleDelete = async () => {
         if (!user) {
@@ -26,17 +38,34 @@ const EventPreview = ({ event }) => {
       }
 
     return (
-        <div className="forumpostDetails">
-            {/* {console.log((typeof event.startDate === 'string'))} */}
+        <>
+        <Card style={{ width: '60rem' }}>
+            <Card.Body>
+                <Card.Header>{event.user_id}</Card.Header>
+                <Card.Text><h4><strong>{event.title}</strong></h4></Card.Text>
+                <Card.Text><strong>Description</strong></Card.Text>
+                <Card.Text>{event.description}</Card.Text>
+            </Card.Body>
+            <Card.Body>
+                <Card.Text>Start Date: {new Date(event.startDate).toLocaleString()}</Card.Text>
+                <Card.Text>End Date: {new Date(event.endDate).toLocaleString()}</Card.Text>
+            </Card.Body>
+            <Card.Footer class="card-footer d-flex justify-content-between">
+                <small className="text-muted">{new Date(event.createdAt).toLocaleString()}</small>
+                {/* <Button><Card.Link size="sm" className="text-decoration-none"  href={`/events/${event._id}`}>Details</Card.Link></Button> */}
+
+                {/* <Button size="sm"><Link className='text-white' to={`/events/${event._id}`} id={event._id}>
+                    Details
+                </Link></Button> */}
+                <Button size="sm" onClick={handleNavigate}>
+                    Details
+                </Button>
+            </Card.Footer>
+        {/* <div className="forumpostDetails">
             <div className="heading">
                 <h6>Title: {event.title}</h6>
                 <div className="actions">
-                    {/*<button className = 'edit' >Details</button>*/}
-                    {/* <button className="edit"><Link to={`/events/${event._id}`}>
-                        Details
-                    </Link></button> */}
                     <span className="space"></span>
-                    {/* <button className='delete' onClick={handleDelete}>Delete</button> */}
                 </div>
             </div>
 
@@ -63,7 +92,11 @@ const EventPreview = ({ event }) => {
             <button className="edit"><Link to={`/events/${event._id}`} id={event._id}>
                 Details
             </Link></button>
-        </div>
+        </div> */}
+            
+        </Card>
+        <br/>
+        </>
     );
 };
 

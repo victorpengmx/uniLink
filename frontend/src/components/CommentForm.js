@@ -3,6 +3,9 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { useParams } from "react-router-dom"
 import { useFPCommentContext } from "../hooks/useFPCommentContext"
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 export const CommentForm = (postId) => {
 
     const [content, setContent] = useState('')
@@ -50,8 +53,7 @@ export const CommentForm = (postId) => {
 
     return (
         <div>
-        <form className="createComment" onSubmit={handleSubmit}>
-            {/* <label>Content:</label> */}
+        <Form>
             <textarea
                 type = "text"
                 placeholder="Write a comment"
@@ -59,10 +61,10 @@ export const CommentForm = (postId) => {
                 value = {content}
             />
 
-            <button>Create comment</button>
+            <Button size='sm' onClick={handleSubmit}>Create comment</Button>
 
             {error && <div className="error">{error}</div>}
-        </form>
+        </Form>
         </div>
     )
 }

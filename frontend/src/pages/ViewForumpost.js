@@ -5,6 +5,11 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { Comment } from "../components/Comment";
 import { CommentForm } from "../components/CommentForm";
 
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+
 import { useNavigate } from "react-router-dom";
 
 const ViewForumpost = () => {
@@ -135,14 +140,54 @@ const ViewForumpost = () => {
     const postId = id
 
     return (
+        <>
+        {forumpost && <Card style={{ width: '60rem' }}>
+            <Card.Body>
+                <Card.Header>{forumpost.user_id}</Card.Header>
+                <Card.Text><h4>{forumpost.title}</h4></Card.Text>
+                <Card.Text>
+                    {!editing && <p>{forumpost.content}</p>}  
+                    {editing && <Form>
+                        <label>Content:</label>
+                        <textarea
+                            type = "text"
+                            onChange = {(e) => setEditingContent(e.target.value)}
+                            value = {editingContent}
+                        />
+                    </Form>}                          
+                </Card.Text>
+                <Card.Footer class="card-footer d-flex justify-content-between">
+                        <small className="text-muted">{new Date(forumpost.createdAt).toLocaleString()}</small>
+                        <span>
+                            <ButtonGroup size="sm" className="me-2" aria-label="First group">
+                                {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
+                                {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}
+                            </ButtonGroup>
+                            <ButtonGroup size="sm" className="me-2" aria-label="Second group">
+                                {! editing && <Button variant="primary" onClick={handleDelete}>Delete</Button>}
+                                {editing && <Button variant="secondary" onClick={handleSubmit}>Save</Button>}
+                            </ButtonGroup>
+                        </span>
+                    </Card.Footer>
+            </Card.Body>
+        </Card>}
         <div>
+            {forumpost && <CommentForm postId={postId} />}
+        </div>
+        <div>
+            {comments && comments.map((comment) => (
+                <Comment key={comment._id} comment={comment} postId={postId} ></Comment>
+            ))}
+        </div>
+        
+        {/* <div> */}
             {/* if editing state is false, show post */}
-            {!editing && forumpost && <div className="viewForumposts">
+            {/* {!editing && forumpost && <div className="viewForumposts">
                 <div className="heading">
                     <h4>{forumpost.title}</h4>
                     <div className="actions">
                         {
-                            // user._id == forumpost.user_id &&
+                            user._id == forumpost.user_id &&
                             <div>
                             <button className='edit' onClick={handleShowEditInterface}>Edit</button>
                             <span className="space"></span>
@@ -154,15 +199,13 @@ const ViewForumpost = () => {
                     </div>
                 </div>
                 <p>Id = {id}</p>
-                {/* <p>User id = {user._id}</p> */}
-                {/* <p>dispatch = {dispatch}</p> */}
                 <p><strong>Content: </strong>{forumpost.content}</p>
                 <p><strong>User: </strong>{forumpost.user_id}</p>
                 <p>{new Date(forumpost.createdAt).toLocaleString()}</p>
-            </div>}
+            </div>} */}
 
             {/* if editing state is true, show editing interface */}
-            {editing && forumpost && <div className="editForumposts">
+            {/* {editing && forumpost && <div className="editForumposts">
                 <div className="heading">
                     <h4>{forumpost.title}</h4>
                     <div className="actions">
@@ -191,7 +234,8 @@ const ViewForumpost = () => {
                 ))}
             </div>
 
-        </div>
+        </div> */}
+        </>
     )
 }
 

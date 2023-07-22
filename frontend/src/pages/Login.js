@@ -35,6 +35,7 @@ const Login = () => {
                         value={password} 
                     />
 
+                    <br/>
                     <button disabled={isLoading}>Log in</button>
 
                     {/* displays error if there exists one */}

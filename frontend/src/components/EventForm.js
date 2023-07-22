@@ -1,8 +1,13 @@
 import { useState } from "react"
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useEventContext } from "../hooks/useEventContext"
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const EventForm = () => {
     const { eventDispatch } = useEventContext()
@@ -55,51 +60,64 @@ const EventForm = () => {
     }
 
     return (
-        <form className="createEvent" onSubmit={handleSubmit}>
+        <Form className="createEvent">
             <h3>New Event</h3>
 
-            <label>Event Title</label>
-            <input
-                type = "text"
+            <Form.Control
+                type="text" 
+                placeholder="Title"
                 onChange = {(e) => setTitle(e.target.value)}
-                value = {title}
+                value = {title} 
             />
-            
-            <label>Description</label>
-            <textarea
-                type = "text"
+
+            <br/>
+
+            <Form.Control
+                as="textarea"
+                type="text" 
+                placeholder="Description"
                 onChange = {(e) => setDescription(e.target.value)}
-                value = {description}
+                value = {description} 
             />
 
-            <label>Start Date and Time</label>
+            <br/>
 
-            <div><DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                timeCaption="time"
-                dateFormat="MMMM d, yyyy h:mm aa"
-            /></div>
+            <InputGroup className="mb-3">
+                <InputGroup.Text id="inputGroup-sizing-default">
+                    Start Date and Time
+                </InputGroup.Text>
 
-            <label>End Date and Time</label>
+                <div><DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={15}
+                    timeCaption="time"
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                /></div>
+            </InputGroup>
 
-            <div><DatePicker
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                timeCaption="time"
-                dateFormat="MMMM d, yyyy h:mm aa"
-            /></div>
+            <InputGroup className="mb-3">
+                <InputGroup.Text id="inputGroup-sizing-default">
+                    End Date and Time
+                </InputGroup.Text>
 
-            <button>Create Event</button>
+                <div><DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={15}
+                    timeCaption="time"
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                /></div>
+            </InputGroup>
+
+            <Button size="sm" className="m-2" onClick={handleSubmit}>Create Event</Button>
 
             {error && <div className="error">{error}</div>}
-        </form>
+        </Form>
     )
 }
 

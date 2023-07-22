@@ -2,6 +2,9 @@ import { useState } from "react"
 import { useForumpostContext } from "../hooks/useForumpostContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 const ForumpostForm = () => {
     const { dispatch } = useForumpostContext()
     const { user } = useAuthContext()
@@ -53,29 +56,26 @@ const ForumpostForm = () => {
     }
 
     return (
-        <div>
-        <form className="createForumpost" onSubmit={handleSubmit}>
-            <h3>Create a new post</h3>
-
-            <label>Post Title</label>
+        <Form>
+            <h5>Create a new post</h5>
             <input
                 type = "text"
-                onChange = {(e) => setTitle(e.target.value)}
-                value = {title}
+                placeholder="Title"
+                onChange = {(e) => setContent(e.target.value)}
+                value = {content}
             />
-
-            <label>Content:</label>
+            <br/>
             <textarea
                 type = "text"
+                placeholder="Content"
                 onChange = {(e) => setContent(e.target.value)}
                 value = {content}
             />
 
-            <button>Create post</button>
+            <Button size='sm' onClick={handleSubmit}>Create comment</Button>
 
             {error && <div className="error">{error}</div>}
-        </form>
-        </div>
+        </Form>
     )
 }
 

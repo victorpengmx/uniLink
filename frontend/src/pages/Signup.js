@@ -35,6 +35,7 @@ const Signup = () => {
                         value={password} 
                     />
 
+                    <br/>
                     <button disabled={isLoading}>Sign up</button>
 
                     {/* displays error if there exists one */}

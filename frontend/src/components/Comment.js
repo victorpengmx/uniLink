@@ -2,6 +2,11 @@ import { useFPCommentContext } from '../hooks/useFPCommentContext'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useState, useEffect } from 'react'
 
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+
 export const Comment = ({ comment, postId }) => {
     const {user} = useAuthContext()
     const { commentDispatch } = useFPCommentContext()
@@ -99,15 +104,36 @@ export const Comment = ({ comment, postId }) => {
 
     return (
         <>
-            {!editing && <div className="forumpostDetails">
-                <p><strong>Content: </strong>{commentDetails.content}</p>
-                <p><strong>User: </strong>{commentDetails.userId}</p>
-                <p><strong>Created At: </strong>{new Date(commentDetails.createdAt).toLocaleString()}</p>
-                <button className='edit' onClick={handleShowEditInterface}>Edit</button>
-                <button className='delete' onClick={handleDelete}>Delete</button>
-            </div>}
+            {<Card style={{ width: '60rem' }}>
+                <Card.Body>
+                    <Card.Header>{commentDetails.userId}</Card.Header>
+                    <Card.Text>
+                        {!editing && <p>{commentDetails.content}</p>}  
+                        {editing && <Form>
+                            <textarea
+                                type = "text"
+                                onChange = {(e) => setEditingContent(e.target.value)}
+                                value = {editingContent}
+                            />
+                        </Form>}                          
+                    </Card.Text>
+                    <Card.Footer class="card-footer d-flex justify-content-between">
+                        <small className="text-muted">{new Date(commentDetails.createdAt).toLocaleString()}</small>
+                        <span>
+                            <ButtonGroup size="sm" className="me-2" aria-label="First group">
+                                {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
+                                {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}
+                            </ButtonGroup>
+                            <ButtonGroup size="sm" className="me-2" aria-label="Second group">
+                                {! editing && <Button variant="primary" onClick={handleDelete}>Delete</Button>}
+                                {editing && <Button variant="secondary" onClick={handleSubmit}>Save</Button>}
+                            </ButtonGroup>
+                        </span>
+                    </Card.Footer>
+                </Card.Body>
+            </Card>}
             
-            {editing && <div className="">
+            {/* {editing && <div className="">
                 <div className="heading">
                     <div className="actions">
                         <button className = 'cancel' onClick={handleCancel}>Cancel</button>
@@ -124,7 +150,8 @@ export const Comment = ({ comment, postId }) => {
                         />
                     </form>
                 </div>
-            </div>}
+            </div>} */}
+            <br/>
         </>
     )
 }
