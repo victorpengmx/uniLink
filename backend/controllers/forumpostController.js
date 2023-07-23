@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 // Get all posts
 const getAllPosts = async(req, res) => {
-    // const user_id = req.user._id
+    const user_id = req.user._id
 
     const posts = await ForumPost.find({ /*user_id*/ }).sort({createdAt: -1})
 
@@ -15,7 +15,7 @@ const getAllPosts = async(req, res) => {
 const getUserPosts = async (req, res) => {
     try {
         const userId = req.params.userId;
-        const userPosts = await ForumPost.find({ user_id: userId });
+        const userPosts = await Forumpost.find({ user_id: userId });
 
         res.json(userPosts);
     } catch (error) {
@@ -43,11 +43,11 @@ const getSinglePost = async(req, res) => {
 
 // Create a new post
 const createPost = async(req, res) => {
-    const {title, content, user_id} = req.body
+    const {title, description, content} = req.body
 
     //add new post to database
     try {
-        // const user_id = req.user._id
+        const user_id = req.user._id
 
         const forumpost = await ForumPost.create({title, content, user_id})
         res.status(200).json(forumpost)
@@ -94,11 +94,9 @@ const updatePost = async(req, res) => {
 
 // Get all comments
 const getAllComments = async(req, res) => {
-    // const user_id = req.user._id
-    const {postId} = req.params
-    console.log(postId)
+    const user_id = req.user._id
 
-    const comments = await FPComment.find(/*{ postId: postId }*/).sort({createdAt: -1})
+    const comments = await FPComment.find({ /*user_id*/ }).sort({createdAt: -1})
 
     res.status(200).json(comments)
 }
@@ -125,10 +123,9 @@ const getSingleComment = async(req, res) => {
 const createComment = async(req, res) => {
     //add new post to database
     try {
-        const { content, postId, userId } = req.body;
+        const { userId, content } = req.body;
         const comment = await FPComment.create({
             "content": content,
-            "postId": postId.postId,
             "userId": userId
         });
         res.status(200).json(comment)
@@ -157,13 +154,13 @@ const deleteComment = async (req, res) => {
 
 // Update a comment
 const updateComment = async(req, res) => {
-    const {commentId} = req.params
+    const {id} = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(commentId)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such comment'})
     }
 
-    const comment = await FPComment.findOneAndUpdate({_id: commentId}, {
+    const comment = await FPComment.findOneAndUpdate({_id: id}, {
         ...req.body
     })
 

@@ -123,17 +123,17 @@ const ViewEvent = () => {
                 <div className="actions">
                     {
                         // user._id == forumpost.user_id &&
-                        <div>
-                            <button className='edit' onClick={handleShowEditInterface}>Edit</button>
-                            <span className="space"></span>
-                            <button className = 'delete' onClick={handleDelete}>
-                                Delete
-                            </button>
-                        </div>
+                        // <div>
+                        //     <button className='edit' onClick={handleShowEditInterface}>Edit</button>
+                        //     <span className="space"></span>
+                        //     <button className = 'delete' onClick={handleDelete}>
+                        //         Delete
+                        //     </button>
+                        // </div>
                     }
                 </div>
             {/* </div>} */}
-            
+
                 <div className="forumpostDetails">
                     <div className="heading">
                         <h6>Title: {event.title}</h6>
@@ -184,7 +184,7 @@ const ViewEvent = () => {
                             onChange = {(e) => setEditingTitle(e.target.value)}
                             value = {editingTitle}
                         />
-                        
+
                         <label>Description</label>
                         <textarea
                             type = "text"

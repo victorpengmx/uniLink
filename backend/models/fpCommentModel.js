@@ -11,9 +11,9 @@ const fpCommentSchema = new Schema({
         // type: mongoose.Types.ObjectId,
         type: String,
     },
-    userId: {
+    user_id: {
         type: String,
-        required: true,
+        //required: true,
     }
 }, {timestamps: true})
 
