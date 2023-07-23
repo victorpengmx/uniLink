@@ -119,7 +119,7 @@ export const Comment = ({ comment, postId }) => {
                     </Card.Text>
                     <Card.Footer class="card-footer d-flex justify-content-between">
                         <small className="text-muted">{new Date(commentDetails.createdAt).toLocaleString()}</small>
-                        <span>
+                        {user._id == comment.userId && <span>
                             <ButtonGroup size="sm" className="me-2" aria-label="First group">
                                 {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
                                 {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}
@@ -128,7 +128,7 @@ export const Comment = ({ comment, postId }) => {
                                 {! editing && <Button variant="primary" onClick={handleDelete}>Delete</Button>}
                                 {editing && <Button variant="secondary" onClick={handleSubmit}>Save</Button>}
                             </ButtonGroup>
-                        </span>
+                        </span>}
                     </Card.Footer>
                 </Card.Body>
             </Card>}

@@ -18,6 +18,9 @@ const ForumpostPreview = ({ forumpost }) => {
                 <Card.Body>
                     <Card.Header>{forumpost.user_id}</Card.Header>
                     <Card.Text>
+                        <h5>{forumpost.title}</h5>
+                    </Card.Text>
+                    <Card.Text>
                     {/* <strong>Content: </strong> */}
                         {forumpost.content}
                     </Card.Text>

@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+
 
 const ViewEvent = () => {
     const {user} = useAuthContext()
@@ -114,25 +120,100 @@ const ViewEvent = () => {
         if (response.ok) {
             eventDispatch(editEvent)
             setEdit(false)
+            changeFetch(false)
         }
     }
 
     return (
-        <div>
+        <>
+        {event && <Card style={{ width: '60rem' }}>
+            <Card.Body>
+                <Card.Header>{event.user_id}</Card.Header>
+
+                <Card.Text>
+                    {!editing && <Card.Body>
+                        <Card.Text><h5>{event.title}</h5></Card.Text>
+                        <Card.Text>{event.description}</Card.Text>
+                        <Card.Text>Start Date: {new Date(event.startDate).toLocaleString()}</Card.Text>
+                        <Card.Text>End Date: {new Date(event.endDate).toLocaleString()}</Card.Text>
+                    </Card.Body>}  
+                    {editing && <Form className="createEvent">
+                        <h5>Edit Event</h5>
+
+                        <Form.Control
+                            type="text" 
+                            placeholder="Title"
+                            onChange = {(e) => setEditingTitle(e.target.value)}
+                            value = {editingTitle} 
+                        />
+                        <br/>
+
+                        <Form.Control
+                            as="textarea"
+                            type="text" 
+                            placeholder="Description"
+                            onChange = {(e) => setEditingDescription(e.target.value)}
+                            value = {editingDescription} 
+                        />
+                        <br/>
+
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="inputGroup-sizing-default">
+                                Start Date and Time
+                            </InputGroup.Text>
+
+                            <div><DatePicker
+                                selected={editingStartDate}
+                                onChange={(date) => setEditingStartDate(date)}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                timeCaption="time"
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                            /></div>
+                        </InputGroup>
+
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="inputGroup-sizing-default">
+                                End Date and Time
+                            </InputGroup.Text>
+
+                            <div><DatePicker
+                                selected={editingEndDate}
+                                onChange={(date) => setEditingEndDate(date)}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                timeCaption="time"
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                            /></div>
+                        </InputGroup>
+                    </Form>}                       
+                </Card.Text>
+
+                <Card.Footer class="card-footer d-flex justify-content-between">
+                        <small className="text-muted">{new Date(event.createdAt).toLocaleString()}</small>
+                        {user._id == event.userId &&<span>
+                            <ButtonGroup size="sm" className="me-2" aria-label="First group">
+                                {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
+                                {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}
+                            </ButtonGroup>
+                            <ButtonGroup size="sm" className="me-2" aria-label="Second group">
+                                {! editing && <Button variant="primary" onClick={handleDelete}>Delete</Button>}
+                                {editing && <Button variant="secondary" onClick={handleSubmit}>Save</Button>}
+                            </ButtonGroup>
+                        </span>}
+                    </Card.Footer>
+            </Card.Body>
+        </Card>}
+        
+        
+
+
+        {/* <div>
             {!editing && event && <div className="viewForumposts">
                 <div className="actions">
-                    {
-                        // user._id == forumpost.user_id &&
-                        // <div>
-                        //     <button className='edit' onClick={handleShowEditInterface}>Edit</button>
-                        //     <span className="space"></span>
-                        //     <button className = 'delete' onClick={handleDelete}>
-                        //         Delete
-                        //     </button>
-                        // </div>
-                    }
                 </div>
-            {/* </div>} */}
 
                 <div className="forumpostDetails">
                     <div className="heading">
@@ -165,17 +246,12 @@ const ViewEvent = () => {
                     <button className='edit' onClick={handleShowEditInterface}>Edit</button>
                     <button className='delete' onClick={handleDelete}>Delete</button>
                 </div>
-            </div>}
+            </div>} */}
 
             {/* if editing state is true, show editing interface */}
-            {editing && event && <div className="editForumposts">
+            {/* {editing && event && <div className="editForumposts">
                 <div className="heading">
                     <h4>{event.title}</h4>
-                    {/* <div className="actions">
-                        <button className = 'cancel' onClick={handleCancel}>Cancel</button>
-                        <span className="space"></span>
-                        <button className = 'save' onClick={handleSubmit} >Save</button>
-                    </div> */}
 
                     <form className="editEvent" onSubmit={handleSubmit}>
                         <label>Event Title</label>
@@ -221,7 +297,8 @@ const ViewEvent = () => {
                     </form>
                 </div>
             </div>}
-        </div>
+        </div> */}
+        </>
     );
 }
 

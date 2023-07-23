@@ -133,6 +133,7 @@ const ViewForumpost = () => {
         if (response.ok) {
             dispatch(editpost)
             setEdit(false)
+            changeFetch(false)
         }
     }
 
@@ -156,18 +157,18 @@ const ViewForumpost = () => {
                     </Form>}                          
                 </Card.Text>
                 <Card.Footer class="card-footer d-flex justify-content-between">
-                        <small className="text-muted">{new Date(forumpost.createdAt).toLocaleString()}</small>
-                        <span>
-                            <ButtonGroup size="sm" className="me-2" aria-label="First group">
-                                {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
-                                {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}
-                            </ButtonGroup>
-                            <ButtonGroup size="sm" className="me-2" aria-label="Second group">
-                                {! editing && <Button variant="primary" onClick={handleDelete}>Delete</Button>}
-                                {editing && <Button variant="secondary" onClick={handleSubmit}>Save</Button>}
-                            </ButtonGroup>
-                        </span>
-                    </Card.Footer>
+                    <small className="text-muted">{new Date(forumpost.createdAt).toLocaleString()}</small>
+                    {user._id == forumpost.user_id && <span>
+                        <ButtonGroup size="sm" className="me-2" aria-label="First group">
+                            {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
+                            {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}
+                        </ButtonGroup>
+                        <ButtonGroup size="sm" className="me-2" aria-label="Second group">
+                            {! editing && <Button variant="primary" onClick={handleDelete}>Delete</Button>}
+                            {editing && <Button variant="secondary" onClick={handleSubmit}>Save</Button>}
+                        </ButtonGroup>
+                    </span>}
+                </Card.Footer>
             </Card.Body>
         </Card>}
         <div>
@@ -186,7 +187,7 @@ const ViewForumpost = () => {
                     <h4>{forumpost.title}</h4>
                     <div className="actions">
                         {
-                            user._id == forumpost.user_id &&
+                            // user._id == forumpost.user_id &&
                             <div>
                             <button className='edit' onClick={handleShowEditInterface}>Edit</button>
                             <span className="space"></span>

@@ -1,11 +1,14 @@
 import { useState } from "react"
 import { useForumpostContext } from "../hooks/useForumpostContext"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { useNavigate } from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const ForumpostForm = () => {
+    const navigate = useNavigate()
+
     const { dispatch } = useForumpostContext()
     const { user } = useAuthContext()
 
@@ -52,6 +55,7 @@ const ForumpostForm = () => {
             setError(null)
             console.log(user.email)
             console.log('new forum post created', json)
+            navigate("/")
         }
     }
 
@@ -61,8 +65,8 @@ const ForumpostForm = () => {
             <input
                 type = "text"
                 placeholder="Title"
-                onChange = {(e) => setContent(e.target.value)}
-                value = {content}
+                onChange = {(e) => setTitle(e.target.value)}
+                value = {title}
             />
             <br/>
             <textarea
@@ -72,7 +76,7 @@ const ForumpostForm = () => {
                 value = {content}
             />
 
-            <Button size='sm' onClick={handleSubmit}>Create comment</Button>
+            <Button size='sm' onClick={handleSubmit}>Create post</Button>
 
             {error && <div className="error">{error}</div>}
         </Form>

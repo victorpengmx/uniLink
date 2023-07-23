@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useEventContext } from "../hooks/useEventContext"
-import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
@@ -43,7 +42,7 @@ const EventPreview = ({ event }) => {
             <Card.Body>
                 <Card.Header>{event.user_id}</Card.Header>
                 <Card.Text><h4><strong>{event.title}</strong></h4></Card.Text>
-                <Card.Text><strong>Description</strong></Card.Text>
+                {/* <Card.Text><strong>Description</strong></Card.Text> */}
                 <Card.Text>{event.description}</Card.Text>
             </Card.Body>
             <Card.Body>
@@ -52,11 +51,6 @@ const EventPreview = ({ event }) => {
             </Card.Body>
             <Card.Footer class="card-footer d-flex justify-content-between">
                 <small className="text-muted">{new Date(event.createdAt).toLocaleString()}</small>
-                {/* <Button><Card.Link size="sm" className="text-decoration-none"  href={`/events/${event._id}`}>Details</Card.Link></Button> */}
-
-                {/* <Button size="sm"><Link className='text-white' to={`/events/${event._id}`} id={event._id}>
-                    Details
-                </Link></Button> */}
                 <Button size="sm" onClick={handleNavigate}>
                     Details
                 </Button>

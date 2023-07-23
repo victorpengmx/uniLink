@@ -1,14 +1,12 @@
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-// import { location } from 'react-router-dom'
-// import SearchForm from '../pages/SearchForm';
-// import ViewForumpost from "../pages/ViewForumpost";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
 
 function NavigationBar() {
 
@@ -37,18 +35,19 @@ function NavigationBar() {
             <Nav className="ms-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/forumpostform">New Post</Nav.Link>
-              <Nav.Link as={Link} to="/viewmypost">My Posts</Nav.Link>
+              {/* <Nav.Link as={Link} to="/viewmypost">My Posts</Nav.Link> */}
               <Nav.Link as={Link} to="/events">Events</Nav.Link>
             </Nav>
 
             <Nav className="ms-auto">
-              <NavDropdown title="Profile" id="basic-nav-dropdown" placement='end'>
+              {/* <NavDropdown title="Profile" id="basic-nav-dropdown" placement='end'>
                 <NavDropdown.Item as={Link} to="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="#action/3.2">action</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="#action/3.3">Something</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleClick}>Logout</NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown> */}
+              <Button size="sm" onClick={handleClick}>Logout</Button>
             </Nav>
           </>}
           
