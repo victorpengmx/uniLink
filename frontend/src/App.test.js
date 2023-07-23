@@ -96,3 +96,87 @@ describe('Forum App', () => {
 
     // Add more tests for other functionalities (update post, delete post, etc.) following a similar pattern.
 });
+
+
+// EventForm.test.js
+import React from 'react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import EventForm from '../components/EventForm';
+
+// Mock fetch function
+global.fetch = jest.fn(() => Promise.resolve({
+    json: () => Promise.resolve({}),
+}));
+
+beforeEach(() => {
+    fetch.mockClear();
+});
+
+test('EventForm submits the form correctly', async () => {
+    render(<EventForm />);
+
+    // Fill out the form
+    userEvent.type(screen.getByPlaceholderText('Title'), 'Test Event');
+    userEvent.type(screen.getByPlaceholderText('Description'), 'This is a test event');
+
+    // Submit the form
+    fireEvent.click(screen.getByText('Create Event'));
+
+    await waitFor(() => {
+        expect(fetch).toHaveBeenCalledWith('/api/events', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: 'Test Event',
+                description: 'This is a test event',
+                startDate: expect.anything(),
+                endDate: expect.anything(),
+                user_id: expect.anything(),
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': expect.stringMatching(/^Bearer /),
+            },
+        });
+    });
+});
+
+// EventPreview.test.js
+import React from 'react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import EventPreview from '../components/EventPreview';
+
+// Mock fetch function
+global.fetch = jest.fn(() => Promise.resolve({
+    json: () => Promise.resolve({}),
+}));
+
+beforeEach(() => {
+    fetch.mockClear();
+});
+
+test('EventPreview handles delete correctly', async () => {
+    const event = { // mock event object
+        _id: 'testId',
+        user_id: 'testUser',
+        title: 'Test Event',
+        description: 'This is a test event',
+        startDate: new Date(),
+        endDate: new Date(),
+        createdAt: new Date(),
+    };
+    render(<EventPreview event={event} />);
+
+    // Click the 'Delete' button
+    fireEvent.click(screen.getByText('Delete'));
+
+    await waitFor(() => {
+        expect(fetch).toHaveBeenCalledWith('/api/events/testId', {
+            method: 'DELETE',
+            headers: {
+                'Authorization': expect.stringMatching(/^Bearer /),
+            },
+        });
+    });
+});
+
