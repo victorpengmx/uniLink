@@ -193,7 +193,7 @@ const ViewEvent = () => {
 
                 <Card.Footer class="card-footer d-flex justify-content-between">
                         <small className="text-muted">{new Date(event.createdAt).toLocaleString()}</small>
-                        {user._id == event.userId &&<span>
+                        {user.email == event.user_id &&<span>
                             <ButtonGroup size="sm" className="me-2" aria-label="First group">
                                 {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
                                 {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}

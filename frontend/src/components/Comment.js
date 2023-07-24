@@ -25,6 +25,7 @@ export const Comment = ({ comment, postId }) => {
                 }
             })
             const json = await response.json()
+            // console.log(json)
 
             if (response.ok) {
                 setCommentDetails(json)
@@ -119,7 +120,7 @@ export const Comment = ({ comment, postId }) => {
                     </Card.Text>
                     <Card.Footer class="card-footer d-flex justify-content-between">
                         <small className="text-muted">{new Date(commentDetails.createdAt).toLocaleString()}</small>
-                        {user._id == comment.userId && <span>
+                        {<span>
                             <ButtonGroup size="sm" className="me-2" aria-label="First group">
                                 {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
                                 {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}

@@ -8,12 +8,12 @@ const fpCommentSchema = new Schema({
         required: true,
     },
     postId: {
-        // type: mongoose.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         type: String,
     },
-    user_id: {
+    userId: {
         type: String,
-        //required: true,
+        required: true,
     }
 }, {timestamps: true})
 

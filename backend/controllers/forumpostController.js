@@ -43,11 +43,11 @@ const getSinglePost = async(req, res) => {
 
 // Create a new post
 const createPost = async(req, res) => {
-    const {title, description, content} = req.body
+    const {title, content, user_id} = req.body
 
     //add new post to database
     try {
-        const user_id = req.user._id
+        // const user_id = req.user.email
 
         const forumpost = await ForumPost.create({title, content, user_id})
         res.status(200).json(forumpost)
@@ -123,7 +123,7 @@ const getSingleComment = async(req, res) => {
 const createComment = async(req, res) => {
     //add new post to database
     try {
-        const { userId, content } = req.body;
+        const {userId, content} = req.body;
         const comment = await FPComment.create({
             "content": content,
             "userId": userId
@@ -154,13 +154,13 @@ const deleteComment = async (req, res) => {
 
 // Update a comment
 const updateComment = async(req, res) => {
-    const {id} = req.params
+    const {commentId} = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(commentId)) {
         return res.status(404).json({error: 'No such comment'})
     }
 
-    const comment = await FPComment.findOneAndUpdate({_id: id}, {
+    const comment = await FPComment.findOneAndUpdate({_id: commentId}, {
         ...req.body
     })
 

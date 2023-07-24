@@ -158,7 +158,7 @@ const ViewForumpost = () => {
                 </Card.Text>
                 <Card.Footer class="card-footer d-flex justify-content-between">
                     <small className="text-muted">{new Date(forumpost.createdAt).toLocaleString()}</small>
-                    {user._id == forumpost.user_id && <span>
+                    {user.email == forumpost.user_id && <span>
                         <ButtonGroup size="sm" className="me-2" aria-label="First group">
                             {! editing && <Button variant="primary" onClick={handleShowEditInterface}>Edit</Button>}
                             {editing && <Button variant="secondary" onClick={handleCancel}>Cancel</Button>}
