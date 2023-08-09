@@ -46,8 +46,6 @@ const createEvent = async(req, res) => {
 
     //add new event to database
     try {
-        // const user_id = req.user._id
-
         const event = await Event.create({title, description, startDate, endDate, user_id})
         res.status(200).json(event)
     } catch (error) {

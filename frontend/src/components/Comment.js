@@ -133,25 +133,6 @@ export const Comment = ({ comment, postId }) => {
                     </Card.Footer>
                 </Card.Body>
             </Card>}
-            
-            {/* {editing && <div className="">
-                <div className="heading">
-                    <div className="actions">
-                        <button className = 'cancel' onClick={handleCancel}>Cancel</button>
-                        <span className="space"></span>
-                        <button className = 'save' onClick={handleSubmit} >Save</button>
-                    </div>
-
-                    <form>
-                        <label>Content:</label>
-                        <textarea
-                            type = "text"
-                            onChange = {(e) => setEditingContent(e.target.value)}
-                            value = {editingContent}
-                        />
-                    </form>
-                </div>
-            </div>} */}
             <br/>
         </>
     )

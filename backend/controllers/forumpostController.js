@@ -47,8 +47,6 @@ const createPost = async(req, res) => {
 
     //add new post to database
     try {
-        // const user_id = req.user.email
-
         const forumpost = await ForumPost.create({title, content, user_id})
         res.status(200).json(forumpost)
     } catch (error) {
